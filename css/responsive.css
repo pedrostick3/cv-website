@@ -1,0 +1,34 @@
+/* === MOBILE FIRST (< 768px) === */
+
+.lang-toggle {
+  top: var(--space-md);
+  right: var(--space-md);
+}
+
+.scene-01__socials {
+  left: var(--space-md);
+  bottom: var(--space-2xl);
+}
+
+/* === TABLET (768px+) === */
+@media (min-width: 768px) {
+  .scene-01__socials {
+    flex-direction: row;
+    bottom: var(--space-xl);
+    left: var(--scene-padding);
+  }
+}
+
+/* === DESKTOP (1024px+) === */
+@media (min-width: 1024px) {
+  .scene-01__socials {
+    flex-direction: column;
+  }
+}
+
+/* === LARGE SCREENS (1440px+) === */
+@media (min-width: 1440px) {
+  :root {
+    --scene-padding: 6rem;
+  }
+}

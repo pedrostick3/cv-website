@@ -1,0 +1,92 @@
+:root {
+  /* === SCENE COLORS === */
+  --c-purple: #7F77DD;
+  --c-purple-light: #AFA9EC;
+  --c-purple-glow: rgba(127, 119, 221, 0.3);
+  --c-purple-bg: #EEEDFE;
+
+  --c-teal: #1D9E75;
+  --c-teal-light: #5DCAA5;
+  --c-teal-glow: rgba(29, 158, 117, 0.3);
+
+  --c-coral: #D85A30;
+  --c-coral-light: #F0997B;
+  --c-coral-glow: rgba(216, 90, 48, 0.3);
+
+  --c-blue: #378ADD;
+  --c-blue-light: #85B7EB;
+  --c-blue-glow: rgba(55, 138, 221, 0.3);
+
+  --c-pink: #D4537E;
+  --c-pink-light: #ED93B1;
+  --c-pink-glow: rgba(212, 83, 126, 0.3);
+
+  --c-gray: #888780;
+  --c-gray-light: #B4B2A9;
+
+  /* === BACKGROUNDS === */
+  --bg-primary: #0D0D12;
+  --bg-surface: #16161D;
+  --bg-elevated: #1E1E28;
+  --bg-overlay: rgba(13, 13, 18, 0.85);
+
+  /* === TEXT === */
+  --text-primary: #F0EDE6;
+  --text-secondary: #9A9890;
+  --text-tertiary: #5F5E5A;
+  --text-accent: #D4537E;
+
+  /* === BORDERS === */
+  --border-subtle: rgba(240, 237, 230, 0.06);
+  --border-default: rgba(240, 237, 230, 0.1);
+  --border-hover: rgba(240, 237, 230, 0.18);
+
+  /* === TYPOGRAPHY === */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --fs-hero: clamp(3rem, 8vw, 7rem);
+  --fs-scene-title: clamp(2rem, 4vw, 3.5rem);
+  --fs-h2: clamp(1.5rem, 3vw, 2.5rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-body: clamp(1rem, 1.2vw, 1.125rem);
+  --fs-small: clamp(0.8125rem, 1vw, 0.9375rem);
+  --fs-tag: 0.75rem;
+
+  /* === SPACING === */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 8rem;
+
+  /* === LAYOUT === */
+  --max-width: 1200px;
+  --scene-height: 100vh;
+  --scene-padding: clamp(1.5rem, 4vw, 4rem);
+
+  /* === RADIUS === */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* === TRANSITIONS === */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+
+  /* === Z-INDEX === */
+  --z-scene: 1;
+  --z-content: 10;
+  --z-puck: 50;
+  --z-drone: 60;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+}

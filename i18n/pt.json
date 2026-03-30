@@ -1,0 +1,67 @@
+{
+  "lang": "pt",
+  "meta": {
+    "title": "Pedro Dionísio — AI Engineer & Full-Stack Developer",
+    "description": "Portfolio pessoal de Pedro Dionísio. AI Engineer & Full-Stack Developer com experiência em RAG, MCP, Flutter e IoT."
+  },
+  "nav": {
+    "scroll": "scroll"
+  },
+  "scene": {
+    "01": {
+      "greeting": "Olá, eu sou o",
+      "name_first": "Pedro",
+      "name_last": "Dionísio",
+      "title": "AI Engineer & Full-Stack Developer",
+      "motto": "\" Never Give Up! \"",
+      "scroll_hint": "scroll"
+    },
+    "02": {
+      "title": "Modelação 3D em Itália",
+      "tag": "Erasmus+ 2015"
+    },
+    "03": {
+      "title": "Reparação de Telemóveis",
+      "tag": "CTDI 2016"
+    },
+    "04": {
+      "title": "Eletrónica & IoT",
+      "tag": "VisionVolt · Bluenergy · 2016-21"
+    },
+    "05": {
+      "title": "Robótica & Sistemas Embebidos",
+      "tag": "Concursos & Projetos · 2019-21"
+    },
+    "06": {
+      "title": "Transição para Software",
+      "tag": "O drone levanta voo · 2021"
+    },
+    "07": {
+      "title": "Apps Móveis & Backend",
+      "tag": "InspireIT · Flutter · .NET · 2021-24"
+    },
+    "08": {
+      "title": "A Transição para AI",
+      "tag": "2024"
+    },
+    "09": {
+      "title": "Competências AI",
+      "tag": "RAG · MCP · LangChain · 2024-hoje"
+    },
+    "10": {
+      "title": "O Presente",
+      "tag": "Sempre a aprender"
+    },
+    "11": {
+      "title": "Contacto",
+      "download_full_pt": "CV Completo (PT)",
+      "download_full_en": "CV Completo (EN)",
+      "download_ai_en": "CV AI (EN)",
+      "contact_name": "Nome",
+      "contact_email": "Email",
+      "contact_message": "Mensagem",
+      "contact_send": "Enviar",
+      "tag": "Vamos conversar"
+    }
+  }
+}

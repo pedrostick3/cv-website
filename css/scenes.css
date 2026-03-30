@@ -1,0 +1,466 @@
+/* ============================================
+   SCENE 01 — HERO (Hockey stick hits puck)
+   ============================================ */
+
+.scene-01 {
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.scene-01__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+/* --- Hockey rink floor (subtle) --- */
+.scene-01__rink {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(127, 119, 221, 0.03) 100%
+  );
+  pointer-events: none;
+}
+
+.scene-01__rink-line {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: var(--c-purple-glow);
+}
+
+/* --- SVG Illustration --- */
+.scene-01__illustration {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --- Text content --- */
+.scene-01__content {
+  text-align: center;
+  z-index: var(--z-content);
+  pointer-events: none;
+}
+
+.scene-01__greeting {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--c-purple-light);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  opacity: 0;
+}
+
+.scene-01__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-md);
+  opacity: 0;
+}
+
+.scene-01__name span {
+  display: block;
+}
+
+.scene-01__name-first {
+  font-weight: 300;
+  opacity: 0.7;
+}
+
+.scene-01__title {
+  font-family: var(--font-body);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+}
+
+.scene-01__title em {
+  font-style: normal;
+  color: var(--c-pink-light);
+}
+
+.scene-01__motto {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--text-tertiary);
+  letter-spacing: 0.1em;
+  opacity: 0;
+}
+
+/* --- Stick & Puck SVG elements --- */
+.scene-01__stick-group {
+  transform-origin: 85% 85%;
+}
+
+.scene-01__puck-group {
+  opacity: 0;
+}
+
+/* --- Impact particles --- */
+.scene-01__particle {
+  opacity: 0;
+  fill: var(--c-purple);
+}
+
+/* --- Social links --- */
+.scene-01__socials {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: var(--scene-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: var(--z-content);
+  opacity: 0;
+}
+
+.scene-01__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  transition: all var(--duration-normal) var(--ease-out);
+  pointer-events: auto;
+}
+
+.scene-01__social-link:hover {
+  border-color: var(--c-purple-glow);
+  color: var(--c-purple-light);
+  background: rgba(127, 119, 221, 0.08);
+}
+
+.scene-01__social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================
+   SCENE 02 — HOUSE ITALY (Erasmus+)
+   ============================================ */
+
+.scene-02 {
+  background: var(--bg-primary);
+}
+
+.scene-02__inner {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--scene-padding);
+  padding-bottom: var(--space-2xl);
+}
+
+.scene-02__illustration {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.scene-02__content {
+  z-index: var(--z-content);
+  max-width: 500px;
+}
+
+.scene-02__content-title {
+  font-size: var(--fs-scene-title);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   SCENE 03-06 — SHARED INNER LAYOUT
+   ============================================ */
+
+.scene-03__inner,
+.scene-04__inner,
+.scene-05__inner,
+.scene-06__inner,
+.scene-07__inner,
+.scene-08__inner,
+.scene-09__inner,
+.scene-10__inner {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--scene-padding);
+}
+
+/* ============================================
+   SCENE 07 — CODE DOOR (App grid)
+   ============================================ */
+
+.scene-07__app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-md);
+  max-width: 700px;
+  margin: var(--space-lg) auto;
+}
+
+.scene-07__app-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  text-align: center;
+  transition: border-color var(--duration-normal) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
+  cursor: default;
+}
+
+.scene-07__app-card:hover {
+  border-color: var(--c-blue-glow);
+  transform: translateY(-4px);
+}
+
+.scene-07__app-name {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.scene-07__app-desc {
+  font-size: var(--fs-tag);
+  color: var(--text-tertiary);
+  line-height: 1.3;
+}
+
+/* ============================================
+   SCENE 09 — AI SKILLS (Network graph)
+   ============================================ */
+
+.scene-09__poc-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(212, 83, 126, 0.15);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  transition: border-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.scene-09__poc-card:hover {
+  border-color: var(--c-pink-glow);
+}
+
+/* ============================================
+   SCENE 05 — DRONE BUILD (Propeller spin)
+   ============================================ */
+
+@keyframes propeller-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.scene-05__drone-propeller.spinning {
+  animation: propeller-spin 0.15s linear infinite;
+  transform-origin: center center;
+}
+
+/* ============================================
+   SCENE 11 — FOOTER
+   ============================================ */
+
+.scene-11 {
+  min-height: auto;
+  padding: var(--space-2xl) var(--scene-padding);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.scene-11__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .scene-11__inner {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+.scene-11__photo-wrapper {
+  text-align: center;
+}
+
+.scene-11__photo {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  border: 2px solid var(--border-default);
+  margin-bottom: var(--space-lg);
+}
+
+.scene-11__download-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  text-decoration: none;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.scene-11__download-btn:hover {
+  border-color: var(--c-pink-glow);
+  color: var(--c-pink-light);
+  background: rgba(212, 83, 126, 0.05);
+}
+
+.scene-11__download-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+/* Timeline */
+.scene-11__timeline {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  padding-bottom: var(--space-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+.scene-11__timeline-item {
+  flex-shrink: 0;
+  min-width: 120px;
+  padding: var(--space-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.scene-11__timeline-item:hover {
+  border-color: var(--border-hover);
+}
+
+.scene-11__timeline-item.active {
+  border-color: var(--c-pink);
+  background: rgba(212, 83, 126, 0.05);
+}
+
+.scene-11__timeline-year {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.scene-11__timeline-label {
+  font-size: var(--fs-tag);
+  color: var(--text-tertiary);
+  line-height: 1.3;
+}
+
+.scene-11__timeline-detail {
+  display: none;
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--fs-tag);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.scene-11__timeline-item.active .scene-11__timeline-detail {
+  display: block;
+}
+
+/* Contact form */
+.scene-11__contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.scene-11__input,
+.scene-11__textarea {
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  transition: border-color var(--duration-normal) var(--ease-out);
+}
+
+.scene-11__input:focus,
+.scene-11__textarea:focus {
+  outline: none;
+  border-color: var(--c-pink);
+}
+
+.scene-11__textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.scene-11__submit {
+  padding: var(--space-md) var(--space-xl);
+  background: var(--c-pink);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  align-self: flex-start;
+}
+
+.scene-11__submit:hover {
+  background: var(--c-pink-light);
+  transform: translateY(-2px);
+}

@@ -1,13 +1,839 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pedro Dionísio - Flutter Developer & AI Engineer</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedro Dionísio — AI Engineer & Full-Stack Developer</title>
+  <meta name="description" content="Portfolio pessoal de Pedro Dionísio. AI Engineer & Full-Stack Developer.">
+  <meta name="theme-color" content="#0D0D12">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Pedro Dionísio — AI Engineer & Full-Stack Developer">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pedrodionisio.pt">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/scenes.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- GSAP (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="is-loading">
+
+  <!-- ========== LANGUAGE TOGGLE ========== -->
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button class="lang-toggle__btn active" data-lang="pt">PT</button>
+    <button class="lang-toggle__btn" data-lang="en">EN</button>
+  </div>
+
+  <!-- ========================================
+       SCENE 01 — HERO (Hockey stick hits puck)
+       ========================================= -->
+  <section id="scene-01" class="scene scene-01" data-scene="01">
+    <div class="scene-01__inner">
+
+      <!-- Rink floor effect -->
+      <div class="scene-01__rink">
+        <div class="scene-01__rink-line"></div>
+      </div>
+
+      <!-- Hockey stick & puck SVG -->
+      <svg class="scene-01__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+        <!-- Hockey Stick -->
+        <g class="scene-01__stick-group">
+          <!-- Stick shaft -->
+          <rect x="1100" y="500" width="12" height="380" rx="6"
+                fill="#C8C0B0" transform="rotate(-20, 1106, 690)" opacity="0.9"/>
+          <!-- Stick tape (top) -->
+          <rect x="1098" y="500" width="16" height="60" rx="6"
+                fill="#2A2A30" transform="rotate(-20, 1106, 530)" opacity="0.95"/>
+          <!-- Stick blade -->
+          <path d="M1020,870 Q1000,880 990,890 Q980,900 990,910 L1070,910 Q1090,910 1095,895 L1080,870 Z"
+                fill="#2A2A30" transform="rotate(-20, 1040, 890)" opacity="0.95"/>
+        </g>
+
+        <!-- Impact particles -->
+        <g class="scene-01__particles">
+          <circle class="scene-01__particle" cx="980" cy="880" r="3" fill="#7F77DD" opacity="0"/>
+          <circle class="scene-01__particle" cx="960" cy="860" r="2" fill="#AFA9EC" opacity="0"/>
+          <circle class="scene-01__particle" cx="950" cy="890" r="4" fill="#7F77DD" opacity="0"/>
+          <circle class="scene-01__particle" cx="970" cy="850" r="2.5" fill="#CECBF6" opacity="0"/>
+          <circle class="scene-01__particle" cx="940" cy="870" r="3" fill="#AFA9EC" opacity="0"/>
+          <circle class="scene-01__particle" cx="955" cy="845" r="2" fill="#7F77DD" opacity="0"/>
+          <circle class="scene-01__particle" cx="935" cy="885" r="3.5" fill="#CECBF6" opacity="0"/>
+          <circle class="scene-01__particle" cx="965" cy="840" r="1.5" fill="#7F77DD" opacity="0"/>
+        </g>
+
+        <!-- Puck -->
+        <g class="scene-01__puck-group" opacity="0">
+          <ellipse cx="970" cy="895" rx="18" ry="6" fill="#1a1a22"/>
+          <rect x="952" y="882" width="36" height="13" rx="3" fill="#2A2A30"/>
+          <ellipse cx="970" cy="882" rx="18" ry="6" fill="#3a3a44"/>
+          <!-- Puck glow -->
+          <ellipse cx="970" cy="882" rx="22" ry="8" fill="none" stroke="#7F77DD" stroke-width="1" opacity="0.4"/>
+        </g>
+
+        <!-- Decorative grid dots (background) -->
+        <g opacity="0.04">
+          <pattern id="grid-dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="#F0EDE6"/>
+          </pattern>
+          <rect x="0" y="0" width="1920" height="1080" fill="url(#grid-dots)"/>
+        </g>
+
+      </svg>
+
+      <!-- Text content -->
+      <div class="scene-01__content scene__content">
+        <p class="scene-01__greeting" data-i18n="scene.01.greeting">Olá, eu sou o</p>
+        <h1 class="scene-01__name">
+          <span class="scene-01__name-first" data-i18n="scene.01.name_first">Pedro</span>
+          <span data-i18n="scene.01.name_last">Dionísio</span>
+        </h1>
+        <p class="scene-01__title">
+          <em>AI Engineer</em> & Full-Stack Developer
+        </p>
+        <p class="scene-01__motto" data-i18n="scene.01.motto">" Never Give Up! "</p>
+      </div>
+
+      <!-- Social links -->
+      <div class="scene-01__socials">
+        <a href="https://github.com/pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/pedro-afonso-dionisio" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://medium.com/@pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="Medium">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16v16H4z"/><path d="M8 8h2v8H8z"/><path d="M14 8h2v8h-2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" style="opacity: 0;">
+        <div class="scroll-indicator__arrow"></div>
+        <span data-i18n="scene.01.scroll_hint">scroll</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 02 — 3D HOUSE (Erasmus+ Italy, 2015)
+       ============================================= -->
+  <section id="scene-02" class="scene scene-02" data-scene="02">
+    <div class="scene-02__inner scene__inner">
+      <svg class="scene-02__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Mini Europe map -->
+        <g class="scene-02__map" opacity="0.5">
+          <!-- Portugal dot -->
+          <circle cx="320" cy="520" r="8" fill="#D85A30" opacity="0.8"/>
+          <text x="300" y="555" fill="#F0EDE6" font-family="JetBrains Mono, monospace" font-size="14" opacity="0.6">PT</text>
+          <!-- Flight path line -->
+          <path class="scene-02__map-line" d="M328,520 Q600,380 820,480" fill="none" stroke="#D85A30" stroke-width="2" stroke-dasharray="8 4" opacity="0.6"/>
+          <!-- Italy dot -->
+          <circle class="scene-02__map-dot-it" cx="820" cy="480" r="8" fill="#D85A30"/>
+          <text class="scene-02__map-label-it" x="840" y="478" fill="#F0EDE6" font-family="JetBrains Mono, monospace" font-size="14" opacity="0.8">Cosenza, IT</text>
+        </g>
+
+        <!-- Isometric House - Wireframe version -->
+        <g class="scene-02__house-wireframe" transform="translate(860, 380)">
+          <!-- Foundation -->
+          <path class="scene-02__house-foundation" d="M0,200 L200,100 L400,200 L200,300 Z" fill="none" stroke="#D85A30" stroke-width="1.5" opacity="0.4"/>
+          <!-- Left wall -->
+          <path class="scene-02__house-wall-left" d="M0,200 L0,50 L200,150 L200,300 Z" fill="none" stroke="#D85A30" stroke-width="1.5" opacity="0.4"/>
+          <!-- Right wall -->
+          <path class="scene-02__house-wall-right" d="M200,300 L200,150 L400,50 L400,200 Z" fill="none" stroke="#D85A30" stroke-width="1.5" opacity="0.4"/>
+          <!-- Roof lines -->
+          <path class="scene-02__house-roof" d="M0,50 L200,-50 L400,50 L200,150 Z" fill="none" stroke="#D85A30" stroke-width="1.5" opacity="0.4"/>
+          <line x1="200" y1="-50" x2="200" y2="-90" stroke="#D85A30" stroke-width="1.5" opacity="0.4"/>
+          <!-- Grid lines (wireframe effect) -->
+          <line x1="0" y1="125" x2="200" y2="225" stroke="#D85A30" stroke-width="0.5" opacity="0.2"/>
+          <line x1="200" y1="225" x2="400" y2="125" stroke="#D85A30" stroke-width="0.5" opacity="0.2"/>
+          <line x1="100" y1="150" x2="100" y2="0" stroke="#D85A30" stroke-width="0.5" opacity="0.2"/>
+          <line x1="300" y1="150" x2="300" y2="0" stroke="#D85A30" stroke-width="0.5" opacity="0.2"/>
+        </g>
+
+        <!-- Isometric House - Solid version (fades in) -->
+        <g class="scene-02__house-solid" transform="translate(860, 380)" opacity="0">
+          <!-- Foundation -->
+          <path d="M0,200 L200,100 L400,200 L200,300 Z" fill="#2A2A30" stroke="#D85A30" stroke-width="0.5"/>
+          <!-- Left wall -->
+          <path d="M0,200 L0,50 L200,150 L200,300 Z" fill="#1E1E28" stroke="#D85A30" stroke-width="0.5"/>
+          <!-- Right wall -->
+          <path d="M200,300 L200,150 L400,50 L400,200 Z" fill="#24242E" stroke="#D85A30" stroke-width="0.5"/>
+          <!-- Roof -->
+          <path class="scene-02__house-roof" d="M-10,55 L200,-60 L410,55 L200,160 Z" fill="#D85A30" opacity="0.3" stroke="#D85A30" stroke-width="0.5"/>
+          <path d="M-10,55 L200,-60 L200,-95 Z" fill="#993C1D" opacity="0.5"/>
+          <path d="M200,-60 L410,55 L200,-95 Z" fill="#712B13" opacity="0.5"/>
+          <!-- Door -->
+          <path class="scene-02__house-detail" d="M70,270 L70,210 L130,240 L130,300 Z" fill="#0D0D12" stroke="#D85A30" stroke-width="0.5" opacity="0.8"/>
+          <!-- Window left -->
+          <rect class="scene-02__house-detail" x="45" y="140" width="40" height="35" rx="2" fill="#1a3a5a" stroke="#D85A30" stroke-width="0.5" transform="skewY(27)" opacity="0.8"/>
+          <!-- Window right -->
+          <rect class="scene-02__house-detail" x="290" y="95" width="40" height="35" rx="2" fill="#1a3a5a" stroke="#D85A30" stroke-width="0.5" transform="skewY(-27)" opacity="0.8"/>
+        </g>
+
+        <!-- Modeling tools hint -->
+        <g opacity="0.3" transform="translate(1350, 600)">
+          <text fill="#F0997B" font-family="JetBrains Mono, monospace" font-size="12" opacity="0.5">Cinema4D</text>
+          <text y="20" fill="#F0997B" font-family="JetBrains Mono, monospace" font-size="12" opacity="0.5">AutoCAD</text>
+          <text y="40" fill="#F0997B" font-family="JetBrains Mono, monospace" font-size="12" opacity="0.5">ArchiCAD</text>
+        </g>
+      </svg>
+
+      <div class="scene-02__content scene__content">
+        <h2 class="scene-02__content-title" data-i18n="scene.02.title">Modelação 3D em Itália</h2>
+        <p class="scene-02__content-desc" style="color: var(--text-secondary); margin-top: 0.5rem;">
+          EGEA, Cosenza — Erasmus+ 2015
+        </p>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+          <span class="tag tag--coral scene-02__tag">Cinema4D</span>
+          <span class="tag tag--coral scene-02__tag">AutoCAD</span>
+          <span class="tag tag--coral scene-02__tag">ArchiCAD</span>
+          <span class="tag tag--coral scene-02__tag">Erasmus+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 03 — PHONE BREAKS (CTDI, 2016)
+       ============================================= -->
+  <section id="scene-03" class="scene scene-03" data-scene="03">
+    <div class="scene-03__inner scene__inner">
+      <svg class="scene-03__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+        <!-- Incoming puck -->
+        <g class="scene-03__puck-incoming">
+          <ellipse cx="400" cy="540" rx="18" ry="6" fill="#1a1a22"/>
+          <rect x="382" y="527" width="36" height="13" rx="3" fill="#2A2A30"/>
+          <ellipse cx="400" cy="527" rx="18" ry="6" fill="#3a3a44"/>
+          <ellipse cx="400" cy="527" rx="22" ry="8" fill="none" stroke="#7F77DD" stroke-width="1" opacity="0.4"/>
+        </g>
+
+        <!-- Impact flash -->
+        <circle class="scene-03__impact-flash" cx="860" cy="540" r="60" fill="#1D9E75" opacity="0"/>
+
+        <!-- Phone -->
+        <g class="scene-03__phone" transform="translate(800, 280)">
+          <!-- Phone body -->
+          <g class="scene-03__phone-body">
+            <rect x="0" y="0" width="200" height="400" rx="20" fill="#1E1E28" stroke="#3a3a44" stroke-width="2"/>
+            <!-- Screen - intact -->
+            <rect class="scene-03__screen-intact" x="12" y="50" width="176" height="310" rx="4" fill="#0a1628"/>
+            <!-- Screen content lines -->
+            <g class="scene-03__screen-intact" opacity="0.5">
+              <rect x="30" y="80" width="100" height="4" rx="2" fill="#378ADD" opacity="0.4"/>
+              <rect x="30" y="95" width="140" height="3" rx="1.5" fill="#5F5E5A" opacity="0.3"/>
+              <rect x="30" y="108" width="120" height="3" rx="1.5" fill="#5F5E5A" opacity="0.3"/>
+              <rect x="30" y="140" width="60" height="60" rx="4" fill="#1D9E75" opacity="0.2"/>
+              <rect x="100" y="140" width="60" height="60" rx="4" fill="#378ADD" opacity="0.2"/>
+            </g>
+            <!-- Home button -->
+            <circle cx="100" cy="385" r="12" fill="none" stroke="#3a3a44" stroke-width="1.5"/>
+            <!-- Camera notch -->
+            <circle cx="100" cy="25" r="5" fill="#2A2A30"/>
+          </g>
+
+          <!-- Screen shards (fly out on impact) -->
+          <polygon class="scene-03__shard" points="12,50 80,50 60,150 12,120" fill="#0a1628" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="80,50 188,50 188,120 100,100" fill="#0d1e30" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="12,120 60,150 40,250 12,220" fill="#0a1628" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="60,150 100,100 140,200 80,230" fill="#0d1e30" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="100,100 188,120 188,230 140,200" fill="#0a1628" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="12,220 40,250 30,360 12,360" fill="#0d1e30" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="40,250 80,230 120,300 60,360" fill="#0a1628" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+          <polygon class="scene-03__shard" points="80,230 140,200 188,230 150,360 60,360" fill="#0d1e30" stroke="#1D9E75" stroke-width="0.5" opacity="0"/>
+        </g>
+      </svg>
+
+      <div class="scene-03__content scene__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding);">
+        <h2 class="scene-03__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.03.title">Reparação de Telemóveis</h2>
+        <p class="scene-03__content-desc" style="color: var(--text-secondary); margin-top: 0.5rem;">CTDI Lisboa — Estágio 2016</p>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+          <span class="tag tag--teal scene-03__tag">Quality Control</span>
+          <span class="tag tag--teal scene-03__tag">Reparação</span>
+          <span class="tag tag--teal scene-03__tag">Multi-marca</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 04 — ELECTRONICS (VisionVolt, Bluenergy)
+       ============================================= -->
+  <section id="scene-04" class="scene scene-04" data-scene="04">
+    <div class="scene-04__inner scene__inner">
+      <svg class="scene-04__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Phone shell (exploded view layers) -->
+        <g transform="translate(700, 200)">
+          <!-- Back cover -->
+          <rect class="scene-04__layer-back" x="0" y="0" width="200" height="400" rx="20" fill="#16161D" stroke="#3a3a44" stroke-width="1.5"/>
+          <!-- PCB (main focus) -->
+          <g class="scene-04__layer-pcb">
+            <rect x="20" y="40" width="160" height="320" rx="4" fill="#0a3a0a" stroke="#1D9E75" stroke-width="0.5" opacity="0.8"/>
+            <!-- PCB traces -->
+            <path class="scene-04__pcb-trace" d="M40,100 L80,100 L80,160 L140,160" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+            <path class="scene-04__pcb-trace" d="M40,200 L60,200 L60,250 L120,250 L120,300" fill="none" stroke="#5DCAA5" stroke-width="1"/>
+            <path class="scene-04__pcb-trace" d="M160,80 L160,140 L100,140 L100,180" fill="none" stroke="#1D9E75" stroke-width="1"/>
+            <path class="scene-04__pcb-trace" d="M80,300 L80,260 L140,260 L140,200 L160,200" fill="none" stroke="#5DCAA5" stroke-width="1"/>
+            <!-- Components -->
+            <rect class="scene-04__component" x="70" y="90" width="30" height="20" rx="2" fill="#1E1E28" stroke="#1D9E75" stroke-width="1"/>
+            <rect class="scene-04__component" x="110" y="150" width="40" height="25" rx="2" fill="#1E1E28" stroke="#5DCAA5" stroke-width="1"/>
+            <circle class="scene-04__component" cx="90" cy="250" r="10" fill="#1E1E28" stroke="#1D9E75" stroke-width="1"/>
+            <rect class="scene-04__component" x="50" y="300" width="25" height="15" rx="1" fill="#1E1E28" stroke="#5DCAA5" stroke-width="1"/>
+            <rect class="scene-04__component" x="130" y="280" width="20" height="20" rx="2" fill="#1E1E28" stroke="#1D9E75" stroke-width="1"/>
+          </g>
+          <!-- Battery -->
+          <rect class="scene-04__layer-battery" x="30" y="180" width="140" height="120" rx="6" fill="#1a1a22" stroke="#888780" stroke-width="1"/>
+          <!-- Screen -->
+          <rect class="scene-04__layer-screen" x="10" y="10" width="180" height="380" rx="18" fill="rgba(10,22,40,0.5)" stroke="#378ADD" stroke-width="0.5"/>
+        </g>
+
+        <!-- Component labels -->
+        <g class="scene-04__component-label" transform="translate(950, 280)">
+          <text fill="#5DCAA5" font-family="JetBrains Mono, monospace" font-size="12">ESP32</text>
+        </g>
+        <g class="scene-04__component-label" transform="translate(950, 310)">
+          <text fill="#5DCAA5" font-family="JetBrains Mono, monospace" font-size="12">Sensor</text>
+        </g>
+        <g class="scene-04__component-label" transform="translate(950, 340)">
+          <text fill="#5DCAA5" font-family="JetBrains Mono, monospace" font-size="12">BLE Module</text>
+        </g>
+        <g class="scene-04__component-label" transform="translate(950, 370)">
+          <text fill="#5DCAA5" font-family="JetBrains Mono, monospace" font-size="12">PCB SMD</text>
+        </g>
+
+        <!-- Smart home connection lines -->
+        <path class="scene-04__smartline" d="M920,400 Q1050,350 1150,380" fill="none" stroke="#1D9E75" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+        <path class="scene-04__smartline" d="M920,450 Q1080,420 1150,430" fill="none" stroke="#5DCAA5" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+
+        <!-- Mini smart home -->
+        <g class="scene-04__smarthome" transform="translate(1150, 340)">
+          <path d="M0,80 L60,40 L120,80 L120,140 L0,140 Z" fill="#1E1E28" stroke="#1D9E75" stroke-width="1"/>
+          <rect x="20" y="90" width="30" height="30" rx="2" fill="#0D0D12"/>
+          <rect x="70" y="90" width="30" height="50" rx="2" fill="#0D0D12"/>
+          <!-- Lights -->
+          <circle class="scene-04__smarthome-light" cx="35" cy="105" r="4" fill="#1D9E75" opacity="0"/>
+          <circle class="scene-04__smarthome-light" cx="85" cy="105" r="4" fill="#5DCAA5" opacity="0"/>
+        </g>
+      </svg>
+
+      <div class="scene-04__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding); z-index: var(--z-content);">
+        <h2 class="scene-04__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.04.title">Eletrónica & IoT</h2>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+          <span class="tag tag--teal scene-04__tag">SmartHome</span>
+          <span class="tag tag--teal scene-04__tag">BluSensor</span>
+          <span class="tag tag--teal scene-04__tag">DrVidaPocket</span>
+          <span class="tag tag--teal scene-04__tag">Arduino</span>
+          <span class="tag tag--teal scene-04__tag">ESP32</span>
+          <span class="tag tag--teal scene-04__tag">PCB</span>
+          <span class="tag tag--teal scene-04__tag">C/C++</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 05 — DRONE BUILD (Robotics, 2019-21)
+       ============================================= -->
+  <section id="scene-05" class="scene scene-05" data-scene="05">
+    <div class="scene-05__inner scene__inner">
+      <svg class="scene-05__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Phone emitting signal -->
+        <g class="scene-05__phone-source" transform="translate(200, 400)">
+          <rect width="80" height="140" rx="10" fill="#1E1E28" stroke="#3a3a44" stroke-width="1.5"/>
+          <rect x="6" y="20" width="68" height="100" rx="2" fill="#0a1628"/>
+          <circle cx="40" cy="130" r="5" fill="none" stroke="#3a3a44" stroke-width="1"/>
+        </g>
+
+        <!-- Wireless waves -->
+        <circle class="scene-05__wireless-wave" cx="340" cy="470" r="30" fill="none" stroke="#1D9E75" stroke-width="1" opacity="0.4"/>
+        <circle class="scene-05__wireless-wave" cx="340" cy="470" r="55" fill="none" stroke="#1D9E75" stroke-width="0.8" opacity="0.3"/>
+        <circle class="scene-05__wireless-wave" cx="340" cy="470" r="80" fill="none" stroke="#1D9E75" stroke-width="0.5" opacity="0.2"/>
+
+        <!-- Robotic arm -->
+        <g transform="translate(600, 350)">
+          <!-- Base -->
+          <rect class="scene-05__arm-base" x="140" y="250" width="120" height="40" rx="6" fill="#2A2A30" stroke="#888780" stroke-width="1"/>
+          <rect class="scene-05__arm-base" x="180" y="200" width="40" height="55" rx="4" fill="#24242E" stroke="#888780" stroke-width="1"/>
+          <!-- Segment 1 -->
+          <rect class="scene-05__arm-segment-1" x="185" y="120" width="30" height="85" rx="4" fill="#2A2A30" stroke="#888780" stroke-width="1"/>
+          <circle cx="200" cy="120" r="8" fill="#24242E" stroke="#888780" stroke-width="1"/>
+          <!-- Segment 2 -->
+          <rect class="scene-05__arm-segment-2" x="190" y="50" width="20" height="75" rx="3" fill="#24242E" stroke="#888780" stroke-width="1"/>
+          <circle cx="200" cy="50" r="6" fill="#2A2A30" stroke="#888780" stroke-width="1"/>
+          <!-- Gripper -->
+          <g class="scene-05__arm-gripper" transform="translate(185, 20)">
+            <rect x="0" y="0" width="30" height="8" rx="2" fill="#3a3a44"/>
+            <rect class="scene-05__claw-left" x="-5" y="8" width="12" height="20" rx="2" fill="#3a3a44"/>
+            <rect class="scene-05__claw-right" x="23" y="8" width="12" height="20" rx="2" fill="#3a3a44"/>
+          </g>
+        </g>
+
+        <!-- Drone being assembled -->
+        <g class="scene-05__drone-group" transform="translate(1050, 350)">
+          <!-- Drone body -->
+          <ellipse class="scene-05__drone-body" cx="100" cy="100" rx="40" ry="15" fill="#1E1E28" stroke="#888780" stroke-width="1.5"/>
+          <!-- Arms -->
+          <line class="scene-05__drone-arm" x1="60" y1="100" x2="10" y2="70" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <line class="scene-05__drone-arm" x1="140" y1="100" x2="190" y2="70" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <line class="scene-05__drone-arm" x1="60" y1="100" x2="10" y2="130" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <line class="scene-05__drone-arm" x1="140" y1="100" x2="190" y2="130" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <!-- Propellers -->
+          <ellipse class="scene-05__drone-propeller" cx="10" cy="70" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <ellipse class="scene-05__drone-propeller" cx="190" cy="70" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <ellipse class="scene-05__drone-propeller" cx="10" cy="130" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <ellipse class="scene-05__drone-propeller" cx="190" cy="130" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <!-- LEDs -->
+          <circle class="scene-05__drone-led" cx="10" cy="70" r="3" fill="#1D9E75" opacity="0"/>
+          <circle class="scene-05__drone-led" cx="190" cy="70" r="3" fill="#D85A30" opacity="0"/>
+          <circle class="scene-05__drone-led" cx="10" cy="130" r="3" fill="#1D9E75" opacity="0"/>
+          <circle class="scene-05__drone-led" cx="190" cy="130" r="3" fill="#D85A30" opacity="0"/>
+        </g>
+      </svg>
+
+      <div class="scene-05__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding); z-index: var(--z-content);">
+        <h2 class="scene-05__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.05.title">Robótica & Sistemas Embebidos</h2>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+          <span class="tag tag--teal scene-05__tag">1.º Faqtos</span>
+          <span class="tag tag--teal scene-05__tag">2.º RoboParty</span>
+          <span class="tag tag--teal scene-05__tag">MakerFair</span>
+          <span class="tag tag--teal scene-05__tag">Futurália</span>
+          <span class="tag tag--teal scene-05__tag">15+ projetos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 06 — DRONE GUIDE (Transition, 2021)
+       ============================================= -->
+  <section id="scene-06" class="scene scene-06" data-scene="06">
+    <div class="scene-06__inner scene__inner">
+      <svg class="scene-06__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Clouds (parallax) -->
+        <ellipse class="scene-06__cloud" cx="300" cy="200" rx="120" ry="40" fill="#1E1E28" opacity="0.3"/>
+        <ellipse class="scene-06__cloud" cx="800" cy="150" rx="80" ry="25" fill="#1E1E28" opacity="0.2"/>
+        <ellipse class="scene-06__cloud" cx="1400" cy="250" rx="100" ry="30" fill="#1E1E28" opacity="0.25"/>
+
+        <!-- Drone -->
+        <g class="scene-06__drone" transform="translate(860, 400)">
+          <ellipse cx="100" cy="0" rx="40" ry="15" fill="#1E1E28" stroke="#888780" stroke-width="1.5"/>
+          <line x1="60" y1="0" x2="10" y2="-30" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <line x1="140" y1="0" x2="190" y2="-30" stroke="#888780" stroke-width="3" stroke-linecap="round"/>
+          <ellipse cx="10" cy="-30" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <ellipse cx="190" cy="-30" rx="25" ry="4" fill="none" stroke="#5F5E5A" stroke-width="1"/>
+          <circle cx="10" cy="-30" r="3" fill="#1D9E75" opacity="0.8"/>
+          <circle cx="190" cy="-30" r="3" fill="#D85A30" opacity="0.8"/>
+          <!-- Laser/guide beam -->
+          <line x1="100" y1="15" x2="100" y2="200" stroke="#378ADD" stroke-width="1" stroke-dasharray="4 4" opacity="0.3"/>
+        </g>
+
+        <!-- Code particles (transition to software) -->
+        <g opacity="0.4">
+          <text class="scene-06__code-particle" x="200" y="700" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="14" opacity="0">func()</text>
+          <text class="scene-06__code-particle" x="500" y="750" fill="#85B7EB" font-family="JetBrains Mono, monospace" font-size="12" opacity="0">{...}</text>
+          <text class="scene-06__code-particle" x="800" y="720" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="14" opacity="0">class</text>
+          <text class="scene-06__code-particle" x="1100" y="760" fill="#85B7EB" font-family="JetBrains Mono, monospace" font-size="12" opacity="0">import</text>
+          <text class="scene-06__code-particle" x="1400" y="700" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="14" opacity="0">async</text>
+          <text class="scene-06__code-particle" x="350" y="800" fill="#85B7EB" font-family="JetBrains Mono, monospace" font-size="11" opacity="0">flutter</text>
+          <text class="scene-06__code-particle" x="650" y="820" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="13" opacity="0">Widget</text>
+          <text class="scene-06__code-particle" x="950" y="790" fill="#85B7EB" font-family="JetBrains Mono, monospace" font-size="11" opacity="0">.NET</text>
+          <text class="scene-06__code-particle" x="1250" y="810" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="12" opacity="0">API</text>
+        </g>
+      </svg>
+
+      <div class="scene-06__content scene__content" style="text-align: center;">
+        <h2 class="scene-06__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.06.title">Transição para Software</h2>
+        <p class="scene-06__content-desc" style="color: var(--text-secondary); margin-top: 0.5rem;">
+          InspireIT — 2021
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 07 — CODE DOOR (Flutter & .NET, 2021-24)
+       ============================================= -->
+  <section id="scene-07" class="scene scene-07" data-scene="07">
+    <div class="scene-07__inner scene__inner" style="flex-direction: column; justify-content: flex-start; padding-top: var(--space-2xl);">
+
+      <!-- Code door brackets -->
+      <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: var(--space-xl);">
+        <span class="scene-07__door-left" style="font-family: var(--font-display); font-size: clamp(6rem, 15vw, 12rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">{</span>
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <h2 class="scene-07__content-title" style="font-size: var(--fs-scene-title); text-align: center;" data-i18n="scene.07.title">Apps Móveis & Backend</h2>
+          <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: var(--fs-small); margin-top: var(--space-sm);">InspireIT · 2021-2024 · 13+ apps</p>
+        </div>
+        <span class="scene-07__door-right" style="font-family: var(--font-display); font-size: clamp(6rem, 15vw, 12rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">}</span>
+      </div>
+
+      <!-- App grid -->
+      <div class="scene-07__app-grid">
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Bluenergy</div><div class="scene-07__app-desc">Consumos</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Xpend</div><div class="scene-07__app-desc">Custos</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">FitAPP</div><div class="scene-07__app-desc">Saúde</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Omnio</div><div class="scene-07__app-desc">Produtividade</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Planet Agora</div><div class="scene-07__app-desc">Chat & Video</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Gudnest</div><div class="scene-07__app-desc">Aves</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">GeoAds</div><div class="scene-07__app-desc">Publicidade</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">Dinder</div><div class="scene-07__app-desc">Receitas</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">TheBigHand</div><div class="scene-07__app-desc">Fundraising</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">MyAPIR</div><div class="scene-07__app-desc">Renal</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">MBWhere</div><div class="scene-07__app-desc">ATMs</div></div>
+        <div class="scene-07__app-card"><div class="scene-07__app-name">InspirePeople</div><div class="scene-07__app-desc">Notícias</div></div>
+      </div>
+
+      <!-- Backend stack -->
+      <div style="display: flex; gap: 0.5rem; margin-top: var(--space-lg); flex-wrap: wrap; justify-content: center;">
+        <span class="tag tag--blue scene-07__tag">Flutter</span>
+        <span class="tag tag--blue scene-07__tag">Dart</span>
+        <span class="tag tag--blue scene-07__tag">.NET Core</span>
+        <span class="tag tag--blue scene-07__tag">C#</span>
+        <span class="tag tag--blue scene-07__tag">SQL Server</span>
+        <span class="tag tag--blue scene-07__tag">Firebase</span>
+        <span class="tag tag--blue scene-07__tag">MongoDB</span>
+        <span class="tag tag--blue scene-07__tag">SOLID</span>
+        <span class="tag tag--blue scene-07__tag">Clean Arch</span>
+        <span class="tag tag--blue scene-07__tag">JWT</span>
+        <span class="tag tag--blue scene-07__tag">Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 08 — BRAIN → ROBOT (AI Transition, 2024)
+       ============================================= -->
+  <section id="scene-08" class="scene scene-08" data-scene="08">
+    <div class="scene-08__inner scene__inner">
+      <svg class="scene-08__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Brain -->
+        <g class="scene-08__brain" transform="translate(400, 350)">
+          <ellipse cx="80" cy="60" rx="75" ry="55" fill="#2A2A30" stroke="#D4537E" stroke-width="1.5"/>
+          <!-- Brain folds -->
+          <path d="M30,40 Q50,20 80,30 Q110,15 130,40" fill="none" stroke="#D4537E" stroke-width="1" opacity="0.5"/>
+          <path d="M25,60 Q55,50 80,55 Q105,48 135,60" fill="none" stroke="#ED93B1" stroke-width="0.8" opacity="0.4"/>
+          <path d="M30,80 Q60,70 80,75 Q100,68 130,80" fill="none" stroke="#D4537E" stroke-width="0.8" opacity="0.4"/>
+          <!-- Neural pulses -->
+          <line class="scene-08__neural-pulse" x1="20" y1="50" x2="60" y2="35" stroke="#ED93B1" stroke-width="1.5" opacity="0"/>
+          <line class="scene-08__neural-pulse" x1="60" y1="35" x2="100" y2="50" stroke="#D4537E" stroke-width="1.5" opacity="0"/>
+          <line class="scene-08__neural-pulse" x1="100" y1="50" x2="140" y2="40" stroke="#ED93B1" stroke-width="1.5" opacity="0"/>
+          <line class="scene-08__neural-pulse" x1="40" y1="75" x2="80" y2="65" stroke="#D4537E" stroke-width="1.5" opacity="0"/>
+          <line class="scene-08__neural-pulse" x1="80" y1="65" x2="120" y2="75" stroke="#ED93B1" stroke-width="1.5" opacity="0"/>
+          <!-- Glow -->
+          <ellipse cx="80" cy="60" rx="85" ry="65" fill="none" stroke="#D4537E" stroke-width="0.5" opacity="0.2"/>
+        </g>
+
+        <!-- Drone with claw -->
+        <g class="scene-08__drone-claw" transform="translate(350, 150)">
+          <ellipse cx="130" cy="0" rx="35" ry="12" fill="#1E1E28" stroke="#888780" stroke-width="1.5"/>
+          <line x1="130" y1="12" x2="130" y2="60" stroke="#888780" stroke-width="2"/>
+          <line class="scene-08__claw-left" x1="115" y1="60" x2="115" y2="85" stroke="#888780" stroke-width="2.5" stroke-linecap="round"/>
+          <line class="scene-08__claw-right" x1="145" y1="60" x2="145" y2="85" stroke="#888780" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+
+        <!-- Drone + brain combined (for motion path) -->
+        <g class="scene-08__drone-brain-group">
+          <g class="scene-08__brain-small" opacity="0">
+            <ellipse cx="480" cy="320" rx="20" ry="15" fill="#2A2A30" stroke="#D4537E" stroke-width="1"/>
+          </g>
+        </g>
+
+        <!-- Robot -->
+        <g transform="translate(1200, 250)">
+          <!-- Robot body -->
+          <rect x="50" y="180" width="200" height="280" rx="16" fill="#1E1E28" stroke="#888780" stroke-width="1.5"/>
+          <!-- Chest panel -->
+          <rect class="scene-09__robot-panel" x="80" y="220" width="140" height="100" rx="8" fill="#16161D" stroke="#D4537E" stroke-width="0.5" opacity="0.5"/>
+          <!-- Body neural lines -->
+          <path class="scene-08__body-neural" d="M150,220 L150,300 L100,350" fill="none" stroke="#D4537E" stroke-width="1" opacity="0"/>
+          <path class="scene-08__body-neural" d="M150,220 L150,280 L200,330" fill="none" stroke="#ED93B1" stroke-width="0.8" opacity="0"/>
+          <path class="scene-08__body-neural" d="M150,260 L120,310 L120,380" fill="none" stroke="#D4537E" stroke-width="0.8" opacity="0"/>
+          <path class="scene-08__body-neural" d="M150,260 L180,310 L180,400" fill="none" stroke="#ED93B1" stroke-width="0.8" opacity="0"/>
+
+          <!-- Robot head -->
+          <g>
+            <rect class="scene-08__robot-head-top" x="70" y="80" width="160" height="100" rx="20" fill="#24242E" stroke="#888780" stroke-width="1.5"/>
+            <!-- Eyes -->
+            <circle class="scene-08__robot-eye" cx="120" cy="130" r="12" fill="#3a3a44" stroke="#5F5E5A" stroke-width="1"/>
+            <circle class="scene-08__robot-eye" cx="180" cy="130" r="12" fill="#3a3a44" stroke="#5F5E5A" stroke-width="1"/>
+            <!-- Antenna -->
+            <line x1="150" y1="80" x2="150" y2="50" stroke="#888780" stroke-width="2"/>
+            <circle cx="150" cy="45" r="5" fill="#3a3a44" stroke="#888780" stroke-width="1"/>
+          </g>
+        </g>
+
+        <!-- Activation text -->
+        <text class="scene-08__activation-text" x="960" y="620" text-anchor="middle" fill="#D4537E" font-family="JetBrains Mono, monospace" font-size="24" font-weight="500" opacity="0">AI MODE ACTIVATED</text>
+      </svg>
+
+      <div style="position:absolute; bottom: var(--space-2xl); left: 50%; transform: translateX(-50%); text-align: center; z-index: var(--z-content);">
+        <h2 style="font-size: var(--fs-scene-title); font-family: var(--font-display);" data-i18n="scene.08.title">A Transição para AI</h2>
+        <p style="color: var(--text-secondary); margin-top: 0.5rem; font-family: var(--font-mono); font-size: var(--fs-small);" data-i18n="scene.08.tag">2024</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 09 — AI SKILLS (2024-now)
+       ============================================= -->
+  <section id="scene-09" class="scene scene-09" data-scene="09">
+    <div class="scene-09__inner scene__inner" style="flex-direction: column; justify-content: flex-start; padding-top: var(--space-xl);">
+      <h2 style="font-size: var(--fs-scene-title); font-family: var(--font-display); text-align: center; margin-bottom: var(--space-sm);" data-i18n="scene.09.title">Competências AI</h2>
+      <p style="color: var(--text-secondary); text-align: center; font-family: var(--font-mono); font-size: var(--fs-small); margin-bottom: var(--space-xl);">8 PoCs · RAG · MCP · LangChain · Fine-tuning</p>
+
+      <!-- PoC project cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-md); max-width: 900px; width: 100%; margin: 0 auto;">
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">Plug&Play</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">RAG multi-source: web, local, MCPs</div>
+        </div>
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">StopSales</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Automação hotel via email</div>
+        </div>
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">PriceComparison</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">AI Agents para comparação de preços</div>
+        </div>
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">RAG Emails</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Q/A em threads com anexos</div>
+        </div>
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">Excel/CSV AI</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Extração e categorização AI</div>
+        </div>
+        <div class="scene-09__poc-card">
+          <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">PPE Sentinel</div>
+          <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Deteção PPE com Azure CV</div>
+        </div>
+      </div>
+
+      <!-- AI Tech tags -->
+      <div style="display: flex; gap: 0.5rem; margin-top: var(--space-xl); flex-wrap: wrap; justify-content: center; max-width: 900px;">
+        <span class="tag tag--pink scene-09__tag">OpenAI</span>
+        <span class="tag tag--pink scene-09__tag">LangChain</span>
+        <span class="tag tag--pink scene-09__tag">LangGraph</span>
+        <span class="tag tag--pink scene-09__tag">RAG</span>
+        <span class="tag tag--pink scene-09__tag">MCP</span>
+        <span class="tag tag--pink scene-09__tag">VectorDB</span>
+        <span class="tag tag--pink scene-09__tag">HybridSearch</span>
+        <span class="tag tag--pink scene-09__tag">Re-rankers</span>
+        <span class="tag tag--pink scene-09__tag">Fine-tuning</span>
+        <span class="tag tag--pink scene-09__tag">LoRA</span>
+        <span class="tag tag--pink scene-09__tag">N8N</span>
+        <span class="tag tag--pink scene-09__tag">HuggingFace</span>
+        <span class="tag tag--pink scene-09__tag">ElasticSearch</span>
+        <span class="tag tag--pink scene-09__tag">Azure OpenAI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 10 — BEDROOM LOOP (Present)
+       ============================================= -->
+  <section id="scene-10" class="scene scene-10" data-scene="10">
+    <div class="scene-10__inner scene__inner">
+      <svg class="scene-10__room scene-10__illustration" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Room isometric base -->
+        <g transform="translate(460, 200)">
+          <!-- Floor -->
+          <path d="M0,500 L500,250 L1000,500 L500,750 Z" fill="#16161D" stroke="#2A2A30" stroke-width="1"/>
+          <!-- Back wall left -->
+          <path d="M0,500 L0,150 L500,0 L500,250 Z" fill="#1E1E28" stroke="#2A2A30" stroke-width="1"/>
+          <!-- Back wall right -->
+          <path d="M500,250 L500,0 L1000,150 L1000,500 Z" fill="#1a1a22" stroke="#2A2A30" stroke-width="1"/>
+
+          <!-- Window on right wall -->
+          <g class="scene-10__object">
+            <rect x="650" y="60" width="200" height="150" rx="4" fill="#0a1628" stroke="#3a3a44" stroke-width="1" transform="skewY(-27)"/>
+            <rect class="scene-10__window-sky" x="660" y="68" width="180" height="134" rx="2" fill="#0a1a3a" transform="skewY(-27)" opacity="0.8"/>
+          </g>
+
+          <!-- Desk -->
+          <g class="scene-10__object" transform="translate(300, 280)">
+            <path d="M0,80 L200,0 L400,80 L200,160 Z" fill="#2A2A30" stroke="#3a3a44" stroke-width="0.5"/>
+            <line x1="0" y1="80" x2="0" y2="160" stroke="#3a3a44" stroke-width="1"/>
+            <line x1="400" y1="80" x2="400" y2="160" stroke="#3a3a44" stroke-width="1"/>
+            <line x1="200" y1="160" x2="200" y2="240" stroke="#3a3a44" stroke-width="1"/>
+          </g>
+
+          <!-- Monitor 1 -->
+          <g class="scene-10__object" transform="translate(350, 200)">
+            <rect x="0" y="0" width="120" height="80" rx="4" fill="#0a1628" stroke="#378ADD" stroke-width="0.5" transform="skewY(-10)"/>
+            <g class="scene-10__monitor-code" opacity="0.4" clip-path="inset(2px)">
+              <text x="8" y="15" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="6">import flutter</text>
+              <text x="8" y="25" fill="#5DCAA5" font-family="JetBrains Mono, monospace" font-size="6">class App {</text>
+              <text x="8" y="35" fill="#D4537E" font-family="JetBrains Mono, monospace" font-size="6">  build() =></text>
+              <text x="8" y="45" fill="#888780" font-family="JetBrains Mono, monospace" font-size="6">    Scaffold(</text>
+              <text x="8" y="55" fill="#378ADD" font-family="JetBrains Mono, monospace" font-size="6">      body:</text>
+            </g>
+          </g>
+
+          <!-- Monitor 2 -->
+          <g class="scene-10__object" transform="translate(490, 215)">
+            <rect x="0" y="0" width="120" height="80" rx="4" fill="#0a1628" stroke="#D4537E" stroke-width="0.5" transform="skewY(-10)"/>
+            <g opacity="0.4">
+              <text x="8" y="15" fill="#D4537E" font-family="JetBrains Mono, monospace" font-size="6">from langchain</text>
+              <text x="8" y="25" fill="#ED93B1" font-family="JetBrains Mono, monospace" font-size="6">rag = RAG(</text>
+              <text x="8" y="35" fill="#888780" font-family="JetBrains Mono, monospace" font-size="6">  vectordb,</text>
+              <text x="8" y="45" fill="#D4537E" font-family="JetBrains Mono, monospace" font-size="6">  reranker</text>
+              <text x="8" y="55" fill="#ED93B1" font-family="JetBrains Mono, monospace" font-size="6">)</text>
+            </g>
+          </g>
+
+          <!-- Hockey stick on wall -->
+          <g class="scene-10__object" transform="translate(100, 80)">
+            <rect x="0" y="0" width="6" height="180" rx="3" fill="#888780" transform="rotate(-15)" opacity="0.6"/>
+          </g>
+
+          <!-- Mini drone on shelf -->
+          <g class="scene-10__object" transform="translate(780, 120)">
+            <ellipse cx="20" cy="10" rx="15" ry="5" fill="#1E1E28" stroke="#888780" stroke-width="0.8"/>
+            <line x1="5" y1="10" x2="-10" y2="3" stroke="#888780" stroke-width="1.5"/>
+            <line x1="35" y1="10" x2="50" y2="3" stroke="#888780" stroke-width="1.5"/>
+          </g>
+
+          <!-- Mini robot on desk -->
+          <g class="scene-10__object" transform="translate(520, 270)">
+            <rect x="0" y="0" width="20" height="25" rx="4" fill="#24242E" stroke="#D4537E" stroke-width="0.5"/>
+            <circle cx="7" cy="8" r="2" fill="#D4537E" opacity="0.6"/>
+            <circle cx="13" cy="8" r="2" fill="#D4537E" opacity="0.6"/>
+          </g>
+
+          <!-- PCB frames on wall -->
+          <g class="scene-10__object" transform="translate(180, 150)">
+            <rect x="0" y="0" width="40" height="30" rx="2" fill="#0a3a0a" stroke="#1D9E75" stroke-width="0.5" opacity="0.5" transform="skewY(27)"/>
+          </g>
+
+          <!-- Phone on desk -->
+          <g class="scene-10__object" transform="translate(420, 300)">
+            <rect x="0" y="0" width="15" height="28" rx="3" fill="#1E1E28" stroke="#3a3a44" stroke-width="0.5"/>
+          </g>
+        </g>
+      </svg>
+
+      <div style="position:absolute; bottom: var(--space-2xl); left: 50%; transform: translateX(-50%); text-align: center; z-index: var(--z-content);">
+        <h2 style="font-size: var(--fs-scene-title); font-family: var(--font-display);" data-i18n="scene.10.title">O Presente</h2>
+        <p style="color: var(--text-tertiary); margin-top: 0.5rem; font-family: var(--font-mono); font-size: var(--fs-small); font-style: italic;">
+          "Quando for grande quero ser um cientista inventor e quero melhorar a vida das pessoas!"
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SCENE 11 — FOOTER (Contact, Downloads, Timeline)
+       ============================================= -->
+  <section id="scene-11" class="scene scene-11" data-scene="11">
+    <div class="scene-11__inner">
+      <!-- Left column: Photo + Downloads -->
+      <div class="scene-11__photo-wrapper">
+        <div class="scene-11__photo" style="width:180px; height:180px; border-radius: var(--radius-xl); background: var(--bg-elevated); border: 2px solid var(--border-default); display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: var(--fs-small);">
+          Pedro
+        </div>
+
+        <a href="assets/cvs/CV_PedroDionisio_2025_PT.pdf" class="scene-11__download-btn" download>
+          <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span data-i18n="scene.11.download_full_pt">CV Completo (PT)</span>
+        </a>
+        <a href="assets/cvs/CV_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
+          <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span data-i18n="scene.11.download_full_en">CV Completo (EN)</span>
+        </a>
+        <a href="assets/cvs/CV_AI_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
+          <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span data-i18n="scene.11.download_ai_en">CV AI (EN)</span>
+        </a>
+
+        <!-- Social links -->
+        <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-lg); justify-content: center;">
+          <a href="https://github.com/pedrostick3" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/pedro-afonso-dionisio" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: Timeline + Contact -->
+      <div class="scene-11__info">
+        <h2 style="font-size: var(--fs-h2); font-family: var(--font-display); margin-bottom: var(--space-lg);">Timeline</h2>
+
+        <!-- Interactive timeline -->
+        <div class="scene-11__timeline">
+          <div class="scene-11__timeline-item" data-year="2013">
+            <div class="scene-11__timeline-year" style="color: var(--c-purple);">2013</div>
+            <div class="scene-11__timeline-label">INETE — TEAC</div>
+            <div class="scene-11__timeline-detail">Eletrónica, Automação e Comando. Nota: 17. Certificados de Mérito 3 anos consecutivos.</div>
+          </div>
+          <div class="scene-11__timeline-item" data-year="2015">
+            <div class="scene-11__timeline-year" style="color: var(--c-coral);">2015</div>
+            <div class="scene-11__timeline-label">Erasmus+ Itália</div>
+            <div class="scene-11__timeline-detail">EGEA, Cosenza. Modelação 3D com Cinema4D.</div>
+          </div>
+          <div class="scene-11__timeline-item" data-year="2016">
+            <div class="scene-11__timeline-year" style="color: var(--c-teal);">2016</div>
+            <div class="scene-11__timeline-label">CTeSP-SEC</div>
+            <div class="scene-11__timeline-detail">IPS Setúbal. Sistemas Eletrónicos e Computadores. Nota: 16.</div>
+          </div>
+          <div class="scene-11__timeline-item" data-year="2019">
+            <div class="scene-11__timeline-year" style="color: var(--c-teal);">2019</div>
+            <div class="scene-11__timeline-label">VisionVolt + LEI</div>
+            <div class="scene-11__timeline-detail">Estágio VisionVolt. Início LEI em Eng. Informática (3 anos em 2!).</div>
+          </div>
+          <div class="scene-11__timeline-item" data-year="2021">
+            <div class="scene-11__timeline-year" style="color: var(--c-blue);">2021</div>
+            <div class="scene-11__timeline-label">InspireIT</div>
+            <div class="scene-11__timeline-detail">Flutter Fullstack Developer. 13+ apps. Area Lead mobile.</div>
+          </div>
+          <div class="scene-11__timeline-item" data-year="2024">
+            <div class="scene-11__timeline-year" style="color: var(--c-pink);">2024</div>
+            <div class="scene-11__timeline-label">AI Stack</div>
+            <div class="scene-11__timeline-detail">8 PoCs. RAG, MCP, LangChain, Fine-tuning. Python + low-code.</div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <h3 style="font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--space-xl); margin-bottom: var(--space-md);" data-i18n="scene.11.title">Contacto</h3>
+        <div class="scene-11__contact">
+          <div class="scene-11__contact-form">
+            <input class="scene-11__input" type="text" data-i18n="scene.11.contact_name" placeholder="Nome">
+            <input class="scene-11__input" type="email" data-i18n="scene.11.contact_email" placeholder="Email">
+            <textarea class="scene-11__textarea" data-i18n="scene.11.contact_message" placeholder="Mensagem"></textarea>
+            <button class="scene-11__submit" type="button" data-i18n="scene.11.contact_send">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
 </html>
