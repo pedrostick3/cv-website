@@ -287,51 +287,26 @@ body.is-loading {
 }
 
 /* ============================================================
-   SCROLL CONTAINER — scroll-snap host
+   HERO & FOOTER SECTIONS — full-screen, natural scroll
    ============================================================ */
 
-#scroll-container {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  /* Smooth scrolling for keyboard nav / scrollIntoView */
-  scroll-behavior: smooth;
-  /* Hide scrollbar visually while keeping functionality */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE/Edge */
-}
-
-#scroll-container::-webkit-scrollbar {
-  display: none;               /* Chrome/Safari */
-}
-
-/* ============================================================
-   VIDEO SECTIONS — each is a full-screen scroll-snap stop
-   ============================================================ */
-
-.video-section {
+#hero-section,
+#footer-section {
   position: relative;
   width: 100%;
-  height: 100vh;
   overflow: hidden;
-  scroll-snap-align: start;
-  scroll-snap-stop: always; /* Prevent skipping sections on fast scroll */
 }
 
-/* Cinematic sections (scene_1, transitions) — no content overlay */
-.video-section--cinematic {
-  cursor: default;
+#hero-section {
+  height: 100vh;
 }
 
-/* Footer section — allows internal scroll for tall content */
-.video-section--footer {
-  height: auto;
+#footer-section {
   min-height: 100vh;
-  /* Does not use scroll-snap-stop: always so the user
-     can scroll naturally through the footer content   */
+  height: auto;
 }
 
-/* Full-cover background video */
+/* Full-cover background video (hero & footer) */
 .video-bg {
   position: absolute;
   inset: 0;
@@ -341,35 +316,135 @@ body.is-loading {
   pointer-events: none;
 }
 
-/* Content overlay — sits above the video */
-.video-section__content {
+/* Hero content layer */
+.hero-content {
   position: relative;
   z-index: var(--z-content);
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--scene-padding);
-  /* Subtle dark gradient so text is always readable */
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 18, 0.15) 0%,
-    rgba(13, 13, 18, 0.55) 100%
+    rgba(13, 13, 18, 0.1) 0%,
+    rgba(13, 13, 18, 0.5) 100%
   );
 }
 
-/* Footer content override — scrollable, full height */
-.video-section__content--footer {
-  height: auto;
+/* Footer content layer */
+.footer-content {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
   min-height: 100vh;
+  display: flex;
   align-items: flex-start;
+  justify-content: center;
   padding: var(--space-2xl) var(--scene-padding);
-  background: rgba(13, 13, 18, 0.75); /* More opaque for readability */
+  background: rgba(13, 13, 18, 0.78);
 }
 
 /* ============================================================
-   REDUCED MOTION — pause videos, disable transitions
+   SCRUB WRAPPER + PLAYER
+   #scrub-wrapper  — tall div; height set by VideoScrubber.init()
+   #scrub-player   — sticky 100vh frame that stays on screen
+                     while the user scrolls through the wrapper
+   ============================================================ */
+
+#scrub-wrapper {
+  position: relative;
+  width: 100%;
+  /* height injected by JS after video durations are known */
+}
+
+#scrub-player {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-primary); /* fallback while first frame loads */
+}
+
+/* ── Scrub video elements (all stacked, only .is-active visible) ── */
+
+.scrub-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  /* No CSS transition — frame switches must be instant */
+}
+
+.scrub-video.is-active {
+  opacity: 1;
+}
+
+/* ── Scrub content overlays ── */
+
+.scrub-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-content);
+  pointer-events: none; /* Overlay is decorative; links inside get pointer-events: auto */
+  /* Gradient ensures text legibility over any video content */
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 18, 0.0) 30%,
+    rgba(13, 13, 18, 0.65) 100%
+  );
+}
+
+/* Content block inside an overlay — positioned variants */
+.scrub-overlay__content {
+  position: absolute;
+  width: 100%;
+  padding: var(--scene-padding);
+}
+
+.scrub-overlay__content--bottom-left {
+  bottom: var(--space-2xl);
+  left: 0;
+  max-width: 620px;
+}
+
+.scrub-overlay__content--bottom-center {
+  bottom: var(--space-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  max-width: 700px;
+}
+
+.scrub-overlay__content--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: min(960px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+/* Flex row of tags */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--space-md);
+}
+
+/* ============================================================
+   REDUCED MOTION
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -381,14 +456,5 @@ body.is-loading {
 
   .scroll-indicator__arrow::after {
     animation: none;
-  }
-
-  /* Pause auto-playing videos for users who prefer reduced motion */
-  .video-bg {
-    animation-play-state: paused;
-  }
-
-  #scroll-container {
-    scroll-snap-type: none; /* Restore natural scroll for reduced motion */
   }
 }
