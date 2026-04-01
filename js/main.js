@@ -171,7 +171,14 @@ async function boot() {
       updateZoneVisibility();
     }
 
-    // 6. Unlock scroll and remove loading screen
+    // 6. Rotate indicator dismiss
+    const rotateBtn = document.getElementById('rotate-dismiss');
+    const rotateEl  = document.getElementById('rotate-indicator');
+    if (rotateBtn && rotateEl) {
+      rotateBtn.addEventListener('click', () => rotateEl.classList.add('is-dismissed'));
+    }
+
+    // 7. Unlock scroll and remove loading screen
     hideLoadingScreen();
     document.body.classList.remove('is-loading');
     document.body.classList.add('is-ready');

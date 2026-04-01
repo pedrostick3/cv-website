@@ -28,6 +28,21 @@
 </head>
 <body class="is-loading">
 
+  <!-- ========== ROTATE PHONE INDICATOR (< 870px) ========== -->
+  <div id="rotate-indicator" aria-label="Rode o telemóvel">
+    <div class="rotate-indicator__content">
+      <svg class="rotate-indicator__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="2" width="16" height="20" rx="2"/>
+        <path d="M12 18h.01"/>
+      </svg>
+      <svg class="rotate-indicator__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+      </svg>
+      <p class="rotate-indicator__text" data-i18n="rotate.hint">Rode o telemóvel para uma experiência mais imersiva</p>
+      <button class="rotate-indicator__dismiss" id="rotate-dismiss" data-i18n="rotate.dismiss">Continuar assim</button>
+    </div>
+  </div>
+
   <!-- ========== LOADING SCREEN ========== -->
   <div id="loading-screen" role="status" aria-live="polite" aria-label="A carregar...">
     <div class="loader__content">

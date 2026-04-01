@@ -304,7 +304,6 @@ body.is-loading {
 #footer-section {
   min-height: 100vh;
   height: auto;
-  transition: opacity 0.15s ease-out;
 }
 
 /* Full-cover background video (hero & footer) */
@@ -333,7 +332,6 @@ body.is-loading {
     rgba(13, 13, 18, 0.1) 0%,
     rgba(13, 13, 18, 0.5) 100%
   );
-  transition: opacity 0.15s ease-out;
 }
 
 /* Footer content layer */
@@ -386,7 +384,6 @@ body.is-loading {
   height: 100vh;
   overflow: hidden;
   background: var(--bg-primary); /* fallback while first frame loads */
-  transition: opacity 0.15s ease-out;
 }
 
 /* ── Scrub video elements (all stacked, only .is-active visible) ── */
@@ -461,6 +458,101 @@ body.is-loading {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: var(--space-md);
+}
+
+/* ============================================================
+   ROTATE PHONE INDICATOR — shown on portrait screens < 870px
+   ============================================================ */
+
+#rotate-indicator {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-primary);
+  align-items: center;
+  justify-content: center;
+}
+
+.rotate-indicator__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  text-align: center;
+  max-width: 320px;
+}
+
+.rotate-indicator__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--text-secondary);
+  transform: rotate(-90deg);
+}
+
+.rotate-indicator__arrow {
+  width: 28px;
+  height: 28px;
+  color: var(--c-purple-light);
+  animation: rotate-hint 2s ease-in-out infinite;
+}
+
+@keyframes rotate-hint {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+.rotate-indicator__text {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.rotate-indicator__dismiss {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  color: var(--text-tertiary);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  background: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.rotate-indicator__dismiss:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+/* Show only on portrait screens narrower than 870px */
+@media (max-width: 869px) and (orientation: portrait) {
+  #rotate-indicator {
+    display: flex;
+  }
+}
+
+/* Hide when dismissed (JS adds this class) */
+#rotate-indicator.is-dismissed {
+  display: none;
+}
+
+/* ============================================================
+   FOOTER PADDING — mobile (400px–870px)
+   ============================================================ */
+
+@media (min-width: 400px) and (max-width: 869px) {
+  .footer-content--clean {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 399px) {
+  .footer-content--clean {
+    padding: 15px;
+  }
 }
 
 /* ============================================================

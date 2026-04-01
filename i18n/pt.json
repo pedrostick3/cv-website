@@ -7,6 +7,10 @@
   "nav": {
     "scroll": "scroll"
   },
+  "rotate": {
+    "hint": "Rode o telemóvel para uma experiência mais imersiva",
+    "dismiss": "Continuar assim"
+  },
   "scene": {
     "01": {
       "greeting": "Olá, eu sou o",

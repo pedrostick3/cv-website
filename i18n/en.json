@@ -7,6 +7,10 @@
   "nav": {
     "scroll": "scroll"
   },
+  "rotate": {
+    "hint": "Rotate your phone for a more immersive experience",
+    "dismiss": "Continue anyway"
+  },
   "scene": {
     "01": {
       "greeting": "Hi, I'm",
