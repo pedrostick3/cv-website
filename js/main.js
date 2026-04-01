@@ -134,13 +134,10 @@ async function boot() {
     const scrubPlayer   = document.getElementById('scrub-player');
 
     if (heroSection && footerSection && scrubWrapper) {
-      let lastZone = 'hero';
+      let lastZone = null;
 
       function updateZoneVisibility() {
         const scrollY  = window.scrollY;
-        // Hero occupies exactly 100vh at the top
-        const heroEnd  = heroSection.offsetHeight;
-        // Scrub wrapper offset + its full scroll height
         const scrubEnd = scrubWrapper.offsetTop + scrubWrapper.offsetHeight - window.innerHeight;
 
         let zone;
@@ -155,16 +152,83 @@ async function boot() {
         if (zone === lastZone) return;
         lastZone = zone;
 
-        // Hero: hide content overlay when scrolled, but keep section for layout
-        const heroContent = heroSection.querySelector('.hero-content');
-        if (heroContent) heroContent.style.opacity = (zone === 'hero') ? '1' : '0';
-
-        // Scrub player: show only in scrub zone (and briefly at edges)
-        if (scrubPlayer) scrubPlayer.style.opacity = (zone === 'hero') ? '0' : '1';
-
-        // Footer: fade in at the bottom
-        footerSection.style.opacity = (zone === 'footer') ? '1' : '0';
-        footerSection.style.pointerEvents = (zone === 'footer') ? '' : 'none';
+        // ─── HERO ZONE ─────────────────────────────────────
+        if (zone === 'hero') {
+          // Mostrar Hero
+          heroSection.style.display = 'block';
+          heroSection.style.visibility = 'visible';
+          heroSection.style.pointerEvents = 'auto';
+          
+          // Esconder Scrub e Footer INSTANTANEAMENTE
+          if (scrubPlayer) {
+            scrubPlayer.style.display = 'none';
+            scrubPlayer.style.visibility = 'hidden';
+          }
+          if (footerSection) {
+            footerSection.style.display = 'none';
+            footerSection.style.visibility = 'hidden';
+          }
+          
+          // Garantir que hero video está a tocar
+          const heroVideo = heroSection.querySelector('video');
+          if (heroVideo && heroVideo.paused) {
+            heroVideo.currentTime = 0;
+            heroVideo.play().catch(() => {});
+          }
+        }
+        
+        // ─── SCRUB ZONE ────────────────────────────────────
+        else if (zone === 'scrub') {
+          // Esconder Hero e Footer
+          heroSection.style.display = 'none';
+          heroSection.style.visibility = 'hidden';
+          heroSection.style.pointerEvents = 'none';
+          
+          footerSection.style.display = 'none';
+          footerSection.style.visibility = 'hidden';
+          footerSection.style.pointerEvents = 'none';
+          
+          // Mostrar Scrub
+          if (scrubPlayer) {
+            scrubPlayer.style.display = 'block';
+            scrubPlayer.style.visibility = 'visible';
+          }
+          
+          // Pausar hero e footer videos
+          const heroVideo = heroSection.querySelector('video');
+          const footerVideo = footerSection.querySelector('video');
+          if (heroVideo) heroVideo.pause();
+          if (footerVideo) footerVideo.pause();
+        }
+        
+        // ─── FOOTER ZONE ───────────────────────────────────
+        else if (zone === 'footer') {
+          // Esconder Hero e Scrub
+          heroSection.style.display = 'none';
+          heroSection.style.visibility = 'hidden';
+          heroSection.style.pointerEvents = 'none';
+          
+          if (scrubPlayer) {
+            scrubPlayer.style.display = 'none';
+            scrubPlayer.style.visibility = 'hidden';
+          }
+          
+          // Mostrar Footer
+          footerSection.style.display = 'block';
+          footerSection.style.visibility = 'visible';
+          footerSection.style.pointerEvents = 'auto';
+          
+          // Garantir que footer video está a tocar
+          const footerVideo = footerSection.querySelector('video');
+          if (footerVideo && footerVideo.paused) {
+            footerVideo.currentTime = 0;
+            footerVideo.play().catch(() => {});
+          }
+          
+          // Pausar hero video
+          const heroVideo = heroSection.querySelector('video');
+          if (heroVideo) heroVideo.pause();
+        }
       }
 
       window.addEventListener('scroll', updateZoneVisibility, { passive: true });
