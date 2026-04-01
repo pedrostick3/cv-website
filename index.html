@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/scenes.css">
   <link rel="stylesheet" href="css/responsive.css">
 
-  <!-- App (ES module — no GSAP needed) -->
+  <!-- App -->
   <script type="module" src="js/main.js"></script>
 </head>
 <body class="is-loading">
@@ -34,10 +34,7 @@
       <p class="loader__name">Pedro Dionísio</p>
       <p class="loader__subtitle">AI Engineer &amp; Full-Stack Developer</p>
       <div class="loader__progress-bar"
-           role="progressbar"
-           aria-valuemin="0"
-           aria-valuemax="100"
-           aria-valuenow="0"
+           role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
            id="loader-progressbar">
         <div class="loader__progress-fill" id="loader-bar"></div>
       </div>
@@ -51,100 +48,127 @@
     <button class="lang-toggle__btn" data-lang="en">EN</button>
   </div>
 
-  <!-- ========================================
-       SCROLL CONTAINER
-       scroll-snap-type: y mandatory (CSS)
-       Each .video-section = 100vh snap point
-       ======================================== -->
-  <main id="scroll-container" aria-label="Portfolio sections">
+  <!-- =====================================================================
+       HERO SECTION — hero_section_loop.mp4 (loops continuously)
+       Page starts here. User scrolls down to enter the scrub zone.
+       ===================================================================== -->
+  <section id="hero-section" aria-label="Hero — Pedro Dionísio">
+    <video class="video-bg" muted playsinline preload="auto" loop aria-hidden="true">
+      <source src="assets/videos/hero_section_loop.mp4" type="video/mp4">
+    </video>
 
-    <!-- ============================================================
-         SECTION: HERO  (hero_section_loop.mp4 — loops continuously)
-         ============================================================ -->
-    <section class="video-section" data-section="hero" aria-label="Hero — Pedro Dionísio">
-      <video class="video-bg" muted playsinline preload="auto" loop aria-hidden="true">
-        <source src="assets/videos/hero_section_loop.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content scene-01__inner">
-        <div class="scene-01__content scene__content">
-          <p class="scene-01__greeting" data-i18n="scene.01.greeting">Olá, eu sou o</p>
-          <h1 class="scene-01__name">
-            <span class="scene-01__name-first" data-i18n="scene.01.name_first">Pedro</span>
-            <span data-i18n="scene.01.name_last">Dionísio</span>
-          </h1>
-          <p class="scene-01__title">
-            <em>AI Engineer</em> &amp; Full-Stack Developer
-          </p>
-          <p class="scene-01__motto" data-i18n="scene.01.motto">" Never Give Up! "</p>
-        </div>
-
-        <!-- Social links -->
-        <div class="scene-01__socials">
-          <a href="https://github.com/pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-            </svg>
-          </a>
-          <a href="https://linkedin.com/in/pedro-afonso-dionisio" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-          </a>
-          <a href="https://medium.com/@pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="Medium">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16v16H4z"/>
-              <path d="M8 8h2v8H8z"/>
-              <path d="M14 8h2v8h-2z"/>
-            </svg>
-          </a>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-          <div class="scroll-indicator__arrow"></div>
-          <span data-i18n="scene.01.scroll_hint">scroll</span>
-        </div>
+    <div class="hero-content">
+      <div class="scene-01__content scene__content">
+        <p class="scene-01__greeting" data-i18n="scene.01.greeting">Olá, eu sou o</p>
+        <h1 class="scene-01__name">
+          <span class="scene-01__name-first" data-i18n="scene.01.name_first">Pedro</span>
+          <span data-i18n="scene.01.name_last">Dionísio</span>
+        </h1>
+        <p class="scene-01__title">
+          <em>AI Engineer</em> &amp; Full-Stack Developer
+        </p>
+        <p class="scene-01__motto" data-i18n="scene.01.motto">" Never Give Up! "</p>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENE 1  (scene_1.mp4 — plays once)
-         Narrative intro — no text overlay
-         ============================================================ -->
-    <section class="video-section video-section--cinematic" data-section="s1" aria-hidden="true">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
+      <!-- Social links -->
+      <div class="scene-01__socials">
+        <a href="https://github.com/pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/pedro-afonso-dionisio" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://medium.com/@pedrostick3" class="scene-01__social-link" target="_blank" rel="noopener" aria-label="Medium">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16v16H4z"/>
+            <path d="M8 8h2v8H8z"/>
+            <path d="M14 8h2v8h-2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator">
+        <div class="scroll-indicator__arrow"></div>
+        <span data-i18n="scene.01.scroll_hint">scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SCRUB WRAPPER — height set by VideoScrubber.init() after load
+       The sticky #scrub-player stays fixed while the user scrolls through
+       the wrapper. Scroll position = video timeline position.
+       ===================================================================== -->
+  <div id="scrub-wrapper">
+    <div id="scrub-player" aria-label="Vídeo interativo — faça scroll para navegar">
+
+      <!-- ─── VIDEO ELEMENTS (stacked, all start hidden) ─── -->
+
+      <!-- index 0: scene_1 (no content overlay) -->
+      <video class="scrub-video" data-index="0" muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/videos/scene_1.mp4" type="video/mp4">
       </video>
-    </section>
 
-    <!-- ============================================================
-         SECTION: TRANSITION 1→2  (scene_1_to_scene_2_transition.mp4)
-         Pure video transition — no text overlay
-         ============================================================ -->
-    <section class="video-section video-section--cinematic" data-section="t12" aria-hidden="true">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
+      <!-- index 1: transition 1→2 (no content overlay) -->
+      <video class="scrub-video" data-index="1" muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/videos/scene_1_to_scene_2_transition.mp4" type="video/mp4">
       </video>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENE 2 — 3D HOUSE  (Erasmus+ Italy, 2015)
-         ============================================================ -->
-    <section class="video-section" data-section="s2" aria-label="Erasmus+ Itália — Modelação 3D">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
+      <!-- index 2: scene_2 — 3D House (Erasmus+ Italy, 2015) -->
+      <video class="scrub-video" data-index="2" muted playsinline preload="auto" aria-hidden="true">
         <source src="assets/videos/scene_2.mp4" type="video/mp4">
       </video>
 
-      <div class="video-section__content scene-02__inner">
-        <div class="scene-02__content scene__content">
+      <!-- index 3: transition 2→3 (no content overlay) -->
+      <video class="scrub-video" data-index="3" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_2_to_scene_3_transition.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 4: scene_3 — Phone Breaks (CTDI, 2016) -->
+      <video class="scrub-video" data-index="4" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_3.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 5: scene_4 — Electronics & IoT -->
+      <video class="scrub-video" data-index="5" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_4.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 6: scene_5 — Drone Build (Robotics, 2019-21) -->
+      <video class="scrub-video" data-index="6" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_5.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 7: scene_6_and_7 — Software & Apps (InspireIT, 2021-24) -->
+      <video class="scrub-video" data-index="7" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_6_and_7.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 8: scene_8_and_9 — AI Transition & Skills (2024) -->
+      <video class="scrub-video" data-index="8" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_8_and_9.mp4" type="video/mp4">
+      </video>
+
+      <!-- index 9: scene_10 — The Present -->
+      <video class="scrub-video" data-index="9" muted playsinline preload="auto" aria-hidden="true">
+        <source src="assets/videos/scene_10.mp4" type="video/mp4">
+      </video>
+
+      <!-- ─── CONTENT OVERLAYS (one per video that has text, hidden by default) ─── -->
+
+      <!-- Overlay for index 2: scene_2 — 3D House Italy -->
+      <div class="scrub-overlay" data-video-index="2" hidden aria-label="Erasmus+ Itália">
+        <div class="scrub-overlay__content scrub-overlay__content--bottom-left">
           <h2 class="scene-02__content-title" data-i18n="scene.02.title">Modelação 3D em Itália</h2>
-          <p class="scene-02__content-desc" style="color: var(--text-secondary); margin-top: 0.5rem;">
-            EGEA, Cosenza — Erasmus+ 2015
-          </p>
-          <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+          <p style="color: var(--text-secondary); margin-top: 0.5rem;">EGEA, Cosenza — Erasmus+ 2015</p>
+          <div class="tag-row">
             <span class="tag tag--coral">Cinema4D</span>
             <span class="tag tag--coral">AutoCAD</span>
             <span class="tag tag--coral">ArchiCAD</span>
@@ -152,53 +176,25 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: TRANSITION 2→3  (scene_2_to_scene_3_transition.mp4)
-         Pure video transition — no text overlay
-         ============================================================ -->
-    <section class="video-section video-section--cinematic" data-section="t23" aria-hidden="true">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_2_to_scene_3_transition.mp4" type="video/mp4">
-      </video>
-    </section>
-
-    <!-- ============================================================
-         SECTION: SCENE 3 — PHONE BREAKS  (CTDI, 2016)
-         ============================================================ -->
-    <section class="video-section" data-section="s3" aria-label="Reparação de Telemóveis — CTDI">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_3.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content">
-        <div class="scene-03__content scene__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding);">
-          <h2 class="scene-03__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.03.title">Reparação de Telemóveis</h2>
-          <p class="scene-03__content-desc" style="color: var(--text-secondary); margin-top: 0.5rem;">
-            CTDI Lisboa — Estágio 2016
-          </p>
-          <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+      <!-- Overlay for index 4: scene_3 — Phone Breaks -->
+      <div class="scrub-overlay" data-video-index="4" hidden aria-label="Reparação de Telemóveis">
+        <div class="scrub-overlay__content scrub-overlay__content--bottom-left">
+          <h2 style="font-size: var(--fs-scene-title);" data-i18n="scene.03.title">Reparação de Telemóveis</h2>
+          <p style="color: var(--text-secondary); margin-top: 0.5rem;">CTDI Lisboa — Estágio 2016</p>
+          <div class="tag-row">
             <span class="tag tag--teal">Quality Control</span>
             <span class="tag tag--teal">Reparação</span>
             <span class="tag tag--teal">Multi-marca</span>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENE 4 — ELECTRONICS  (VisionVolt, Bluenergy)
-         ============================================================ -->
-    <section class="video-section" data-section="s4" aria-label="Eletrónica e IoT">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_4.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content">
-        <div class="scene-04__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding); z-index: var(--z-content);">
-          <h2 class="scene-04__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.04.title">Eletrónica &amp; IoT</h2>
-          <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+      <!-- Overlay for index 5: scene_4 — Electronics & IoT -->
+      <div class="scrub-overlay" data-video-index="5" hidden aria-label="Eletrónica e IoT">
+        <div class="scrub-overlay__content scrub-overlay__content--bottom-left">
+          <h2 style="font-size: var(--fs-scene-title);" data-i18n="scene.04.title">Eletrónica &amp; IoT</h2>
+          <div class="tag-row">
             <span class="tag tag--teal">SmartHome</span>
             <span class="tag tag--teal">BluSensor</span>
             <span class="tag tag--teal">DrVidaPocket</span>
@@ -209,20 +205,12 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENE 5 — DRONE BUILD  (Robotics, 2019-21)
-         ============================================================ -->
-    <section class="video-section" data-section="s5" aria-label="Robótica e Sistemas Embebidos">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_5.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content">
-        <div class="scene-05__content" style="position:absolute; bottom: var(--space-2xl); left: var(--scene-padding); z-index: var(--z-content);">
-          <h2 class="scene-05__content-title" style="font-size: var(--fs-scene-title);" data-i18n="scene.05.title">Robótica &amp; Sistemas Embebidos</h2>
-          <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+      <!-- Overlay for index 6: scene_5 — Drone Build -->
+      <div class="scrub-overlay" data-video-index="6" hidden aria-label="Robótica e Sistemas Embebidos">
+        <div class="scrub-overlay__content scrub-overlay__content--bottom-left">
+          <h2 style="font-size: var(--fs-scene-title);" data-i18n="scene.05.title">Robótica &amp; Sistemas Embebidos</h2>
+          <div class="tag-row">
             <span class="tag tag--teal">1.º Faqtos</span>
             <span class="tag tag--teal">2.º RoboParty</span>
             <span class="tag tag--teal">MakerFair</span>
@@ -231,136 +219,104 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENES 6+7 — SOFTWARE & APPS  (InspireIT, 2021-24)
-         scene_6_and_7.mp4 covers both the transition to software
-         and the Flutter/Backend era
-         ============================================================ -->
-    <section class="video-section" data-section="s67" aria-label="Apps Móveis e Backend — InspireIT">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_6_and_7.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content scene-07__inner" style="flex-direction: column; justify-content: flex-start; padding-top: var(--space-2xl);">
-        <!-- Code door header -->
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: var(--space-xl);">
-          <span style="font-family: var(--font-display); font-size: clamp(6rem, 15vw, 12rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">{</span>
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <h2 style="font-size: var(--fs-scene-title); text-align: center;" data-i18n="scene.07.title">Apps Móveis &amp; Backend</h2>
-            <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: var(--fs-small); margin-top: var(--space-sm);">InspireIT · 2021-2024 · 13+ apps</p>
+      <!-- Overlay for index 7: scene_6_and_7 — Apps & Backend -->
+      <div class="scrub-overlay" data-video-index="7" hidden aria-label="Apps Móveis e Backend">
+        <div class="scrub-overlay__content scrub-overlay__content--center">
+          <div style="display: flex; justify-content: center; gap: 2rem; align-items: center; margin-bottom: var(--space-lg);">
+            <span style="font-family: var(--font-display); font-size: clamp(4rem, 10vw, 8rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">{</span>
+            <div style="text-align: center;">
+              <h2 style="font-size: var(--fs-scene-title);" data-i18n="scene.07.title">Apps Móveis &amp; Backend</h2>
+              <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: var(--fs-small); margin-top: var(--space-sm);">InspireIT · 2021-2024 · 13+ apps</p>
+            </div>
+            <span style="font-family: var(--font-display); font-size: clamp(4rem, 10vw, 8rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">}</span>
           </div>
-          <span style="font-family: var(--font-display); font-size: clamp(6rem, 15vw, 12rem); font-weight: 300; color: var(--c-blue); opacity: 0.6; line-height: 1;">}</span>
-        </div>
-
-        <!-- App grid -->
-        <div class="scene-07__app-grid">
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Bluenergy</div><div class="scene-07__app-desc">Consumos</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Xpend</div><div class="scene-07__app-desc">Custos</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">FitAPP</div><div class="scene-07__app-desc">Saúde</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Omnio</div><div class="scene-07__app-desc">Produtividade</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Planet Agora</div><div class="scene-07__app-desc">Chat &amp; Video</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Gudnest</div><div class="scene-07__app-desc">Aves</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">GeoAds</div><div class="scene-07__app-desc">Publicidade</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">Dinder</div><div class="scene-07__app-desc">Receitas</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">TheBigHand</div><div class="scene-07__app-desc">Fundraising</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">MyAPIR</div><div class="scene-07__app-desc">Renal</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">MBWhere</div><div class="scene-07__app-desc">ATMs</div></div>
-          <div class="scene-07__app-card"><div class="scene-07__app-name">InspirePeople</div><div class="scene-07__app-desc">Notícias</div></div>
-        </div>
-
-        <!-- Tech stack -->
-        <div style="display: flex; gap: 0.5rem; margin-top: var(--space-lg); flex-wrap: wrap; justify-content: center;">
-          <span class="tag tag--blue">Flutter</span>
-          <span class="tag tag--blue">Dart</span>
-          <span class="tag tag--blue">.NET Core</span>
-          <span class="tag tag--blue">C#</span>
-          <span class="tag tag--blue">SQL Server</span>
-          <span class="tag tag--blue">Firebase</span>
-          <span class="tag tag--blue">MongoDB</span>
-          <span class="tag tag--blue">SOLID</span>
-          <span class="tag tag--blue">Clean Arch</span>
-          <span class="tag tag--blue">JWT</span>
-          <span class="tag tag--blue">Docker</span>
+          <div class="scene-07__app-grid">
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Bluenergy</div><div class="scene-07__app-desc">Consumos</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Xpend</div><div class="scene-07__app-desc">Custos</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">FitAPP</div><div class="scene-07__app-desc">Saúde</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Omnio</div><div class="scene-07__app-desc">Produtividade</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Planet Agora</div><div class="scene-07__app-desc">Chat &amp; Video</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Gudnest</div><div class="scene-07__app-desc">Aves</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">GeoAds</div><div class="scene-07__app-desc">Publicidade</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">Dinder</div><div class="scene-07__app-desc">Receitas</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">TheBigHand</div><div class="scene-07__app-desc">Fundraising</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">MyAPIR</div><div class="scene-07__app-desc">Renal</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">MBWhere</div><div class="scene-07__app-desc">ATMs</div></div>
+            <div class="scene-07__app-card"><div class="scene-07__app-name">InspirePeople</div><div class="scene-07__app-desc">Notícias</div></div>
+          </div>
+          <div class="tag-row" style="justify-content: center; margin-top: var(--space-lg);">
+            <span class="tag tag--blue">Flutter</span>
+            <span class="tag tag--blue">Dart</span>
+            <span class="tag tag--blue">.NET Core</span>
+            <span class="tag tag--blue">C#</span>
+            <span class="tag tag--blue">SQL Server</span>
+            <span class="tag tag--blue">Firebase</span>
+            <span class="tag tag--blue">MongoDB</span>
+            <span class="tag tag--blue">SOLID</span>
+            <span class="tag tag--blue">Clean Arch</span>
+            <span class="tag tag--blue">JWT</span>
+            <span class="tag tag--blue">Docker</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENES 8+9 — AI TRANSITION & SKILLS  (2024)
-         scene_8_and_9.mp4 covers AI transition + AI skill showcase
-         ============================================================ -->
-    <section class="video-section" data-section="s89" aria-label="Competências AI — 2024">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_8_and_9.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content scene-09__inner" style="flex-direction: column; justify-content: flex-start; padding-top: var(--space-xl); overflow-y: auto;">
-        <h2 style="font-size: var(--fs-scene-title); font-family: var(--font-display); text-align: center; margin-bottom: var(--space-sm);" data-i18n="scene.09.title">Competências AI</h2>
-        <p style="color: var(--text-secondary); text-align: center; font-family: var(--font-mono); font-size: var(--fs-small); margin-bottom: var(--space-xl);">
-          8 PoCs · RAG · MCP · LangChain · Fine-tuning
-        </p>
-
-        <!-- PoC cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-md); max-width: 900px; width: 100%; margin: 0 auto;">
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">Plug&amp;Play</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">RAG multi-source: web, local, MCPs</div>
+      <!-- Overlay for index 8: scene_8_and_9 — AI Skills -->
+      <div class="scrub-overlay" data-video-index="8" hidden aria-label="Competências AI">
+        <div class="scrub-overlay__content scrub-overlay__content--center">
+          <h2 style="font-size: var(--fs-scene-title); text-align: center; margin-bottom: var(--space-sm);" data-i18n="scene.09.title">Competências AI</h2>
+          <p style="color: var(--text-secondary); text-align: center; font-family: var(--font-mono); font-size: var(--fs-small); margin-bottom: var(--space-lg);">
+            8 PoCs · RAG · MCP · LangChain · Fine-tuning
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); max-width: 800px; width: 100%; margin: 0 auto;">
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">Plug&amp;Play</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">RAG multi-source: web, local, MCPs</div>
+            </div>
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">StopSales</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">Automação hotel via email</div>
+            </div>
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">PriceComparison</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">AI Agents para comparação de preços</div>
+            </div>
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">RAG Emails</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">Q/A em threads com anexos</div>
+            </div>
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">Excel/CSV AI</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">Extração e categorização AI</div>
+            </div>
+            <div class="scene-09__poc-card">
+              <div style="font-weight:500; color:var(--c-pink-light); margin-bottom:var(--space-xs); font-size:var(--fs-small);">PPE Sentinel</div>
+              <div style="font-size:var(--fs-tag); color:var(--text-secondary); line-height:1.4;">Deteção PPE com Azure CV</div>
+            </div>
           </div>
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">StopSales</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Automação hotel via email</div>
+          <div class="tag-row" style="justify-content: center; margin-top: var(--space-lg);">
+            <span class="tag tag--pink">OpenAI</span>
+            <span class="tag tag--pink">LangChain</span>
+            <span class="tag tag--pink">LangGraph</span>
+            <span class="tag tag--pink">RAG</span>
+            <span class="tag tag--pink">MCP</span>
+            <span class="tag tag--pink">VectorDB</span>
+            <span class="tag tag--pink">HybridSearch</span>
+            <span class="tag tag--pink">Re-rankers</span>
+            <span class="tag tag--pink">Fine-tuning</span>
+            <span class="tag tag--pink">LoRA</span>
+            <span class="tag tag--pink">N8N</span>
+            <span class="tag tag--pink">HuggingFace</span>
+            <span class="tag tag--pink">ElasticSearch</span>
+            <span class="tag tag--pink">Azure OpenAI</span>
           </div>
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">PriceComparison</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">AI Agents para comparação de preços</div>
-          </div>
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">RAG Emails</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Q/A em threads com anexos</div>
-          </div>
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">Excel/CSV AI</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Extração e categorização AI</div>
-          </div>
-          <div class="scene-09__poc-card">
-            <div style="font-weight: 500; color: var(--c-pink-light); margin-bottom: var(--space-xs); font-size: var(--fs-small);">PPE Sentinel</div>
-            <div style="font-size: var(--fs-tag); color: var(--text-secondary); line-height: 1.4;">Deteção PPE com Azure CV</div>
-          </div>
-        </div>
-
-        <!-- AI tech tags -->
-        <div style="display: flex; gap: 0.5rem; margin-top: var(--space-xl); flex-wrap: wrap; justify-content: center; max-width: 900px;">
-          <span class="tag tag--pink">OpenAI</span>
-          <span class="tag tag--pink">LangChain</span>
-          <span class="tag tag--pink">LangGraph</span>
-          <span class="tag tag--pink">RAG</span>
-          <span class="tag tag--pink">MCP</span>
-          <span class="tag tag--pink">VectorDB</span>
-          <span class="tag tag--pink">HybridSearch</span>
-          <span class="tag tag--pink">Re-rankers</span>
-          <span class="tag tag--pink">Fine-tuning</span>
-          <span class="tag tag--pink">LoRA</span>
-          <span class="tag tag--pink">N8N</span>
-          <span class="tag tag--pink">HuggingFace</span>
-          <span class="tag tag--pink">ElasticSearch</span>
-          <span class="tag tag--pink">Azure OpenAI</span>
         </div>
       </div>
-    </section>
 
-    <!-- ============================================================
-         SECTION: SCENE 10 — THE PRESENT  (Bedroom loop)
-         ============================================================ -->
-    <section class="video-section" data-section="s10" aria-label="O Presente">
-      <video class="video-bg" muted playsinline preload="auto" aria-hidden="true">
-        <source src="assets/videos/scene_10.mp4" type="video/mp4">
-      </video>
-
-      <div class="video-section__content">
-        <div style="position:absolute; bottom: var(--space-2xl); left: 50%; transform: translateX(-50%); text-align: center; z-index: var(--z-content); width: 90%; max-width: 700px;">
-          <h2 style="font-size: var(--fs-scene-title); font-family: var(--font-display);" data-i18n="scene.10.title">O Presente</h2>
+      <!-- Overlay for index 9: scene_10 — The Present -->
+      <div class="scrub-overlay" data-video-index="9" hidden aria-label="O Presente">
+        <div class="scrub-overlay__content scrub-overlay__content--bottom-center">
+          <h2 style="font-size: var(--fs-scene-title);" data-i18n="scene.10.title">O Presente</h2>
           <p style="color: var(--text-tertiary); margin-top: 0.5rem; font-family: var(--font-mono); font-size: var(--fs-small); font-style: italic;">
             "Quando for grande quero ser um cientista inventor e quero melhorar a vida das pessoas!"
           </p>
@@ -377,98 +333,107 @@
         <source src="assets/videos/scene_11_loop.mp4" type="video/mp4">
       </video>
 
-      <div class="video-section__content video-section__content--footer">
-        <div class="scene-11__inner">
+    </div><!-- #scrub-player -->
+  </div><!-- #scrub-wrapper -->
 
-          <!-- Left column: Photo + Downloads + Socials -->
-          <div class="scene-11__photo-wrapper">
-            <div class="scene-11__photo" style="width:180px; height:180px; border-radius: var(--radius-xl); background: var(--bg-elevated); border: 2px solid var(--border-default); display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: var(--fs-small);">
-              Pedro
-            </div>
+  <!-- =====================================================================
+       FOOTER SECTION — scene_11_loop.mp4 (loops continuously)
+       Reached by scrolling past all middle videos.
+       ===================================================================== -->
+  <section id="footer-section" aria-label="Contacto e Timeline">
+    <video class="video-bg" muted playsinline preload="auto" loop aria-hidden="true">
+      <source src="assets/videos/scene_11_loop.mp4" type="video/mp4">
+    </video>
 
-            <a href="assets/cvs/CV_PedroDionisio_2025_PT.pdf" class="scene-11__download-btn" download>
-              <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <span data-i18n="scene.11.download_full_pt">CV Completo (PT)</span>
-            </a>
-            <a href="assets/cvs/CV_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
-              <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <span data-i18n="scene.11.download_full_en">CV Completo (EN)</span>
-            </a>
-            <a href="assets/cvs/CV_AI_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
-              <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <span data-i18n="scene.11.download_ai_en">CV AI (EN)</span>
-            </a>
+    <div class="footer-content">
+      <div class="scene-11__inner">
 
-            <!-- Social links -->
-            <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-lg); justify-content: center;">
-              <a href="https://github.com/pedrostick3" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-              </a>
-              <a href="https://linkedin.com/in/pedro-afonso-dionisio" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                  <rect x="2" y="9" width="4" height="12"/>
-                  <circle cx="4" cy="4" r="2"/>
-                </svg>
-              </a>
-            </div>
+        <!-- Left column: Photo + Downloads + Socials -->
+        <div class="scene-11__photo-wrapper">
+          <div class="scene-11__photo" style="width:180px; height:180px; border-radius: var(--radius-xl); background: var(--bg-elevated); border: 2px solid var(--border-default); display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); font-size: var(--fs-small);">
+            Pedro
           </div>
 
-          <!-- Right column: Timeline + Contact -->
-          <div class="scene-11__info">
-            <h2 style="font-size: var(--fs-h2); font-family: var(--font-display); margin-bottom: var(--space-lg);">Timeline</h2>
+          <a href="assets/cvs/CV_PedroDionisio_2025_PT.pdf" class="scene-11__download-btn" download>
+            <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span data-i18n="scene.11.download_full_pt">CV Completo (PT)</span>
+          </a>
+          <a href="assets/cvs/CV_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
+            <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span data-i18n="scene.11.download_full_en">CV Completo (EN)</span>
+          </a>
+          <a href="assets/cvs/CV_AI_PedroDionisio_2025_EN.pdf" class="scene-11__download-btn" download>
+            <svg class="scene-11__download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span data-i18n="scene.11.download_ai_en">CV AI (EN)</span>
+          </a>
 
-            <div class="scene-11__timeline">
-              <div class="scene-11__timeline-item" data-year="2013">
-                <div class="scene-11__timeline-year" style="color: var(--c-purple);">2013</div>
-                <div class="scene-11__timeline-label">INETE — TEAC</div>
-                <div class="scene-11__timeline-detail">Eletrónica, Automação e Comando. Nota: 17. Certificados de Mérito 3 anos consecutivos.</div>
-              </div>
-              <div class="scene-11__timeline-item" data-year="2015">
-                <div class="scene-11__timeline-year" style="color: var(--c-coral);">2015</div>
-                <div class="scene-11__timeline-label">Erasmus+ Itália</div>
-                <div class="scene-11__timeline-detail">EGEA, Cosenza. Modelação 3D com Cinema4D.</div>
-              </div>
-              <div class="scene-11__timeline-item" data-year="2016">
-                <div class="scene-11__timeline-year" style="color: var(--c-teal);">2016</div>
-                <div class="scene-11__timeline-label">CTeSP-SEC</div>
-                <div class="scene-11__timeline-detail">IPS Setúbal. Sistemas Eletrónicos e Computadores. Nota: 16.</div>
-              </div>
-              <div class="scene-11__timeline-item" data-year="2019">
-                <div class="scene-11__timeline-year" style="color: var(--c-teal);">2019</div>
-                <div class="scene-11__timeline-label">VisionVolt + LEI</div>
-                <div class="scene-11__timeline-detail">Estágio VisionVolt. Início LEI em Eng. Informática (3 anos em 2!).</div>
-              </div>
-              <div class="scene-11__timeline-item" data-year="2021">
-                <div class="scene-11__timeline-year" style="color: var(--c-blue);">2021</div>
-                <div class="scene-11__timeline-label">InspireIT</div>
-                <div class="scene-11__timeline-detail">Flutter Fullstack Developer. 13+ apps. Area Lead mobile.</div>
-              </div>
-              <div class="scene-11__timeline-item" data-year="2024">
-                <div class="scene-11__timeline-year" style="color: var(--c-pink);">2024</div>
-                <div class="scene-11__timeline-label">AI Stack</div>
-                <div class="scene-11__timeline-detail">8 PoCs. RAG, MCP, LangChain, Fine-tuning. Python + low-code.</div>
-              </div>
-            </div>
-
-            <h3 style="font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--space-xl); margin-bottom: var(--space-md);" data-i18n="scene.11.title">Contacto</h3>
-            <div class="scene-11__contact">
-              <div class="scene-11__contact-form">
-                <input class="scene-11__input" type="text" data-i18n="scene.11.contact_name" placeholder="Nome">
-                <input class="scene-11__input" type="email" data-i18n="scene.11.contact_email" placeholder="Email">
-                <textarea class="scene-11__textarea" data-i18n="scene.11.contact_message" placeholder="Mensagem"></textarea>
-                <button class="scene-11__submit" type="button" data-i18n="scene.11.contact_send">Enviar</button>
-              </div>
-            </div>
+          <div style="display: flex; gap: var(--space-sm); margin-top: var(--space-lg); justify-content: center;">
+            <a href="https://github.com/pedrostick3" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              </svg>
+            </a>
+            <a href="https://linkedin.com/in/pedro-afonso-dionisio" target="_blank" rel="noopener" class="scene-01__social-link" style="pointer-events: auto;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
           </div>
-
         </div>
-      </div>
-    </section>
 
-  </main>
+        <!-- Right column: Timeline + Contact -->
+        <div class="scene-11__info">
+          <h2 style="font-size: var(--fs-h2); font-family: var(--font-display); margin-bottom: var(--space-lg);">Timeline</h2>
+
+          <div class="scene-11__timeline">
+            <div class="scene-11__timeline-item" data-year="2013">
+              <div class="scene-11__timeline-year" style="color: var(--c-purple);">2013</div>
+              <div class="scene-11__timeline-label">INETE — TEAC</div>
+              <div class="scene-11__timeline-detail">Eletrónica, Automação e Comando. Nota: 17. Certificados de Mérito 3 anos consecutivos.</div>
+            </div>
+            <div class="scene-11__timeline-item" data-year="2015">
+              <div class="scene-11__timeline-year" style="color: var(--c-coral);">2015</div>
+              <div class="scene-11__timeline-label">Erasmus+ Itália</div>
+              <div class="scene-11__timeline-detail">EGEA, Cosenza. Modelação 3D com Cinema4D.</div>
+            </div>
+            <div class="scene-11__timeline-item" data-year="2016">
+              <div class="scene-11__timeline-year" style="color: var(--c-teal);">2016</div>
+              <div class="scene-11__timeline-label">CTeSP-SEC</div>
+              <div class="scene-11__timeline-detail">IPS Setúbal. Sistemas Eletrónicos e Computadores. Nota: 16.</div>
+            </div>
+            <div class="scene-11__timeline-item" data-year="2019">
+              <div class="scene-11__timeline-year" style="color: var(--c-teal);">2019</div>
+              <div class="scene-11__timeline-label">VisionVolt + LEI</div>
+              <div class="scene-11__timeline-detail">Estágio VisionVolt. Início LEI em Eng. Informática (3 anos em 2!).</div>
+            </div>
+            <div class="scene-11__timeline-item" data-year="2021">
+              <div class="scene-11__timeline-year" style="color: var(--c-blue);">2021</div>
+              <div class="scene-11__timeline-label">InspireIT</div>
+              <div class="scene-11__timeline-detail">Flutter Fullstack Developer. 13+ apps. Area Lead mobile.</div>
+            </div>
+            <div class="scene-11__timeline-item" data-year="2024">
+              <div class="scene-11__timeline-year" style="color: var(--c-pink);">2024</div>
+              <div class="scene-11__timeline-label">AI Stack</div>
+              <div class="scene-11__timeline-detail">8 PoCs. RAG, MCP, LangChain, Fine-tuning. Python + low-code.</div>
+            </div>
+          </div>
+
+          <h3 style="font-size: var(--fs-h3); font-family: var(--font-display); margin-top: var(--space-xl); margin-bottom: var(--space-md);" data-i18n="scene.11.title">Contacto</h3>
+          <div class="scene-11__contact">
+            <div class="scene-11__contact-form">
+              <input class="scene-11__input" type="text" data-i18n="scene.11.contact_name" placeholder="Nome">
+              <input class="scene-11__input" type="email" data-i18n="scene.11.contact_email" placeholder="Email">
+              <textarea class="scene-11__textarea" data-i18n="scene.11.contact_message" placeholder="Mensagem"></textarea>
+              <button class="scene-11__submit" type="button" data-i18n="scene.11.contact_send">Enviar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>

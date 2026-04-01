@@ -1,78 +1,117 @@
 import { initI18n } from './i18n.js';
-import { VideoManager } from './video-manager.js';
-import { ScrollController } from './scroll-controller.js';
+import { VideoScrubber } from './scroll-controller.js';
 
 /**
- * Update the loading screen progress bar and percentage text.
- * @param {number} loaded - number of videos loaded so far
- * @param {number} total  - total number of videos to load
+ * How many pixels of scroll correspond to one second of video.
+ * Increase to make scrubbing slower (more scroll per second of video).
+ * Decrease to make scrubbing faster (less scroll per second of video).
  */
+const PIXELS_PER_SECOND = 200;
+
+// ─── Loading screen helpers ────────────────────────────────────────────────
+
 function updateProgress(loaded, total) {
   const pct = total > 0 ? Math.round((loaded / total) * 100) : 100;
-  const bar = document.getElementById('loader-bar');
-  const label = document.getElementById('loader-percent');
-  const progressbar = document.getElementById('loader-progressbar');
-
-  if (bar) bar.style.width = `${pct}%`;
-  if (label) label.textContent = `${pct}%`;
-  if (progressbar) progressbar.setAttribute('aria-valuenow', String(pct));
+  const bar        = document.getElementById('loader-bar');
+  const label      = document.getElementById('loader-percent');
+  const progressEl = document.getElementById('loader-progressbar');
+  if (bar)        bar.style.width = `${pct}%`;
+  if (label)      label.textContent = `${pct}%`;
+  if (progressEl) progressEl.setAttribute('aria-valuenow', String(pct));
 }
 
-/**
- * Hide and remove the loading screen with a fade-out transition.
- */
 function hideLoadingScreen() {
   const screen = document.getElementById('loading-screen');
   if (!screen) return;
-
   screen.classList.add('is-hidden');
-  screen.addEventListener(
-    'transitionend',
-    () => screen.remove(),
-    { once: true }
-  );
+  screen.addEventListener('transitionend', () => screen.remove(), { once: true });
 }
 
-/**
- * Boot sequence:
- * 1. Load i18n translations
- * 2. Preload all videos (scroll is locked during this)
- * 3. Hide loading screen
- * 4. Enable scroll + initialise ScrollController
- */
+// ─── Video preload helper ──────────────────────────────────────────────────
+
+function preloadVideo(video) {
+  return new Promise(resolve => {
+    if (video.readyState >= 4) { resolve(); return; }
+
+    const cleanup = () => {
+      video.removeEventListener('canplaythrough', onReady);
+      video.removeEventListener('error', onError);
+    };
+    const onReady = () => { cleanup(); resolve(); };
+    const onError = (e) => {
+      cleanup();
+      console.warn('[preload] Failed:', video.currentSrc, e);
+      resolve(); // Don't block on error
+    };
+
+    video.addEventListener('canplaythrough', onReady);
+    video.addEventListener('error', onError);
+    video.preload = 'auto';
+    video.load();
+  });
+}
+
+// ─── Boot ──────────────────────────────────────────────────────────────────
+
 async function boot() {
   try {
-    // 1. Apply translations (fast — local JSON fetch)
+    // 1. Load translations
     await initI18n();
 
-    // 2. Collect and preload all section videos
-    const videoManager = new VideoManager();
-    videoManager.collect();
+    // 2. Preload all videos (hero, scrub videos, footer)
+    const allVideos = [...document.querySelectorAll('video')];
+    const total = allVideos.length;
+    let loaded = 0;
 
-    await videoManager.preload(updateProgress);
+    await Promise.all(
+      allVideos.map(v =>
+        preloadVideo(v).then(() => {
+          loaded++;
+          updateProgress(loaded, total);
+        })
+      )
+    );
 
-    // 3. Unlock scroll and remove loading screen
+    // 3. Start hero and footer loops
+    const heroVideo   = document.querySelector('#hero-section video');
+    const footerVideo = document.querySelector('#footer-section video');
+    heroVideo?.play().catch(() => {});
+    footerVideo?.play().catch(() => {});
+
+    // 4. Initialise the scrub player
+    const scrubWrapper = document.getElementById('scrub-wrapper');
+    const scrubVideos  = [
+      ...document.querySelectorAll('#scrub-player .scrub-video'),
+    ];
+
+    if (scrubWrapper && scrubVideos.length > 0) {
+      const scrubber = new VideoScrubber(scrubWrapper, scrubVideos, PIXELS_PER_SECOND);
+      scrubber.init();
+    }
+
+    // 5. Timeline dot interaction (footer)
+    document.querySelectorAll('.scene-11__timeline-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.scene-11__timeline-item')
+          .forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    // 6. Unlock scroll and remove loading screen
     hideLoadingScreen();
     document.body.classList.remove('is-loading');
     document.body.classList.add('is-ready');
 
-    // 4. Start scroll + video coordination
-    const scrollContainer = document.getElementById('scroll-container');
-    if (scrollContainer) {
-      const scrollController = new ScrollController(videoManager, scrollContainer);
-      scrollController.init();
-    }
-
   } catch (err) {
-    // On unexpected error, still unblock the user
-    console.error('[boot] Fatal error during initialisation:', err);
+    console.error('[boot] Unexpected error:', err);
     hideLoadingScreen();
     document.body.classList.remove('is-loading');
     document.body.classList.add('is-ready');
   }
 }
 
-// Wait for DOM + fonts before booting
+// Wait for DOM + fonts
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => document.fonts.ready.then(boot));
 } else {
