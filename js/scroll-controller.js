@@ -35,11 +35,21 @@ export class VideoScrubber {
    */
   init() {
     // Build cumulative timeline
+    // The last video uses ping-pong (forward + backward) so its virtual duration is 2×
     let cumTime = 0;
-    this.videoEls.forEach(el => {
+    const lastIdx = this.videoEls.length - 1;
+    this.videoEls.forEach((el, i) => {
       const dur = isFinite(el.duration) ? el.duration : 0;
-      this.timeline.push({ el, startTime: cumTime, endTime: cumTime + dur, duration: dur });
-      cumTime += dur;
+      const virtualDur = (i === lastIdx) ? dur * 2 : dur;
+      this.timeline.push({
+        el,
+        startTime: cumTime,
+        endTime: cumTime + virtualDur,
+        duration: dur,
+        virtualDuration: virtualDur,
+        pingPong: i === lastIdx,
+      });
+      cumTime += virtualDur;
     });
     this.totalDuration = cumTime;
 
@@ -97,7 +107,15 @@ export class VideoScrubber {
     if (idx === -1) idx = this.timeline.length - 1; // clamp to last
 
     const entry     = this.timeline[idx];
-    const localTime = Math.max(0, Math.min(time - entry.startTime, entry.duration - 0.001));
+    let localTime = time - entry.startTime;
+
+    // Ping-pong: first half plays forward, second half plays backward
+    if (entry.pingPong) {
+      if (localTime > entry.duration) {
+        localTime = entry.duration * 2 - localTime; // reverse
+      }
+    }
+    localTime = Math.max(0, Math.min(localTime, entry.duration - 0.001));
 
     // Switch the active (visible) video if needed
     if (idx !== this.activeIndex) {
