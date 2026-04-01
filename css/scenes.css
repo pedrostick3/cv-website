@@ -2,17 +2,20 @@
    SCENE 01 — HERO (Hockey stick hits puck)
    ============================================ */
 
+/* scene-01 background handled by video-bg — colour fallback only */
 .scene-01 {
   background: var(--bg-primary);
   position: relative;
 }
 
+/* scene-01__inner is now the video-section__content wrapper */
 .scene-01__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -56,6 +59,9 @@
   pointer-events: none;
 }
 
+/* NOTE: opacity: 0 initial states removed — GSAP no longer drives these.
+   Content is visible by default in the video-based layout. */
+
 .scene-01__greeting {
   font-family: var(--font-mono);
   font-size: var(--fs-small);
@@ -63,7 +69,6 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: var(--space-md);
-  opacity: 0;
 }
 
 .scene-01__name {
@@ -74,7 +79,6 @@
   line-height: 0.95;
   letter-spacing: -0.03em;
   margin-bottom: var(--space-md);
-  opacity: 0;
 }
 
 .scene-01__name span {
@@ -92,7 +96,6 @@
   font-weight: 400;
   color: var(--text-secondary);
   margin-bottom: var(--space-lg);
-  opacity: 0;
 }
 
 .scene-01__title em {
@@ -105,22 +108,6 @@
   font-size: var(--fs-small);
   color: var(--text-tertiary);
   letter-spacing: 0.1em;
-  opacity: 0;
-}
-
-/* --- Stick & Puck SVG elements --- */
-.scene-01__stick-group {
-  transform-origin: 85% 85%;
-}
-
-.scene-01__puck-group {
-  opacity: 0;
-}
-
-/* --- Impact particles --- */
-.scene-01__particle {
-  opacity: 0;
-  fill: var(--c-purple);
 }
 
 /* --- Social links --- */
@@ -132,7 +119,6 @@
   flex-direction: column;
   gap: var(--space-md);
   z-index: var(--z-content);
-  opacity: 0;
 }
 
 .scene-01__social-link {
@@ -163,26 +149,23 @@
    SCENE 02 — HOUSE ITALY (Erasmus+)
    ============================================ */
 
+/* scene-02 background handled by video-bg */
 .scene-02 {
   background: var(--bg-primary);
 }
 
 .scene-02__inner {
   position: relative;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
   padding: var(--scene-padding);
   padding-bottom: var(--space-2xl);
-}
-
-.scene-02__illustration {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  /* Override the base video-section__content centering */
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
 .scene-02__content {
@@ -292,16 +275,12 @@
    SCENE 11 — FOOTER
    ============================================ */
 
-.scene-11 {
-  min-height: auto;
-  padding: var(--space-2xl) var(--scene-padding);
-  background: var(--bg-surface);
-  border-top: 1px solid var(--border-subtle);
-}
-
+/* scene-11 background handled by video-bg overlay.
+   The .scene-11__inner is now inside .video-section__content--footer */
 .scene-11__inner {
   max-width: var(--max-width);
   margin: 0 auto;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-xl);
