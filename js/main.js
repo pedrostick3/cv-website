@@ -72,11 +72,47 @@ async function boot() {
       )
     );
 
-    // 3. Start hero and footer loops
+    // 3. Start hero loop and footer ping-pong
     const heroVideo   = document.querySelector('#hero-section video');
     const footerVideo = document.querySelector('#footer-section video');
     heroVideo?.play().catch(() => {});
-    footerVideo?.play().catch(() => {});
+
+    // Footer video: ping-pong (play forward → reverse → repeat)
+    if (footerVideo) {
+      footerVideo.loop = false;
+      let reversing = false;
+      let rafId = null;
+      let lastTimestamp = 0;
+
+      footerVideo.play().catch(() => {});
+
+      footerVideo.addEventListener('ended', () => {
+        // Forward pass finished — start reversing
+        reversing = true;
+        lastTimestamp = 0;
+        rafId = requestAnimationFrame(reverseStep);
+      });
+
+      function reverseStep(timestamp) {
+        if (!reversing) return;
+        if (!lastTimestamp) { lastTimestamp = timestamp; rafId = requestAnimationFrame(reverseStep); return; }
+
+        const delta = (timestamp - lastTimestamp) / 1000; // seconds elapsed
+        lastTimestamp = timestamp;
+        const newTime = footerVideo.currentTime - delta; // 1× speed backward
+
+        if (newTime <= 0) {
+          // Reached the start — play forward again
+          reversing = false;
+          footerVideo.currentTime = 0;
+          footerVideo.play().catch(() => {});
+          return;
+        }
+
+        footerVideo.currentTime = newTime;
+        rafId = requestAnimationFrame(reverseStep);
+      }
+    }
 
     // 4. Initialise the scrub player
     const scrubWrapper = document.getElementById('scrub-wrapper');
