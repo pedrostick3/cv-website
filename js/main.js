@@ -144,28 +144,30 @@ async function boot() {
 
       function updateZoneVisibility() {
         const scrollY = window.scrollY;
-        // scrubWrapper.offsetTop is always heroHeight (hero stays in flow)
+        // scrubWrapper.offsetTop varies: heroHeight when hero is shown, 0 when hidden.
+        // Always recalculate live so scrubEnd is correct regardless of hero visibility.
         const scrubEnd = scrubWrapper.offsetTop + scrubWrapper.offsetHeight - window.innerHeight;
 
         let zone;
-        if (scrollY < 2)          { zone = 'hero'; }
+        if (scrollY < 2)              { zone = 'hero'; }
         else if (scrollY >= scrubEnd) { zone = 'footer'; }
-        else                       { zone = 'scrub'; }
+        else                          { zone = 'scrub'; }
 
         if (zone === lastZone) return;
         lastZone = zone;
 
-        // Hero content: opacity only — hero section stays in flow for stable layout
-        if (heroContent) heroContent.style.opacity = (zone === 'hero') ? '1' : '0';
-        if (heroVid) {
-          if (zone === 'hero') heroVid.play().catch(() => {});
-          else heroVid.pause();
-        }
+        // Hero: show/hide the whole section via display.
+        // When hidden, scrubWrapper collapses to offsetTop=0 so the sticky
+        // scrub player immediately fills the viewport — instant swap.
+        heroSection.style.display = (zone === 'hero') ? 'block' : 'none';
+        if (zone === 'hero') heroVid?.play().catch(() => {});
+        else                 heroVid?.pause();
 
-        // Scrub player: visible only in scrub zone
+        // Scrub player: opacity only (sticky element, no layout impact).
         if (scrubPlayer) scrubPlayer.style.opacity = (zone === 'scrub') ? '1' : '0';
 
-        // Footer: fixed overlay — display toggles instantly, no scroll animation
+        // Footer: position:fixed overlay — display toggles instantly over the full
+        // viewport with no scroll-in animation regardless of scroll position.
         footerSection.style.display = (zone === 'footer') ? 'block' : 'none';
       }
 
