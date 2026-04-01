@@ -290,20 +290,23 @@ body.is-loading {
    HERO & FOOTER SECTIONS — full-screen, natural scroll
    ============================================================ */
 
-#hero-section,
-#footer-section {
+#hero-section {
   position: relative;
   width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
-#hero-section {
-  height: 100vh;
-}
-
+/* Footer is a fixed full-screen overlay — never in the normal scroll flow.
+   Shown/hidden via JS (display: none ↔ block). No scroll-in animation. */
 #footer-section {
-  min-height: 100vh;
-  height: auto;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 20;
+  display: none;
 }
 
 /* Full-cover background video (hero & footer) */

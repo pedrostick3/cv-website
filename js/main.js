@@ -126,109 +126,47 @@ async function boot() {
     }
 
     // 5. Instant hero↔scrub and scrub↔footer transitions
-    //    Hero shows when scrollY is 0 (top of page).
-    //    Footer fades in when scrolled past all scrub videos.
-    //    Both use visibility/opacity so they don't collapse layout.
+    //
+    //    Layout strategy:
+    //    - #hero-section stays in DOM flow always (height: 100vh) so scrubWrapper.offsetTop
+    //      is always stable. Only .hero-content opacity is toggled.
+    //    - #scrub-player opacity toggled (position: sticky, no layout impact).
+    //    - #footer-section is position: fixed — shown/hidden via display. It appears
+    //      instantly over the full viewport with no scroll-in animation.
     const heroSection   = document.getElementById('hero-section');
     const footerSection = document.getElementById('footer-section');
     const scrubPlayer   = document.getElementById('scrub-player');
+    const heroContent   = heroSection?.querySelector('.hero-content');
+    const heroVid       = heroSection?.querySelector('video');
 
     if (heroSection && footerSection && scrubWrapper) {
       let lastZone = null;
 
       function updateZoneVisibility() {
-        const scrollY  = window.scrollY;
+        const scrollY = window.scrollY;
+        // scrubWrapper.offsetTop is always heroHeight (hero stays in flow)
         const scrubEnd = scrubWrapper.offsetTop + scrubWrapper.offsetHeight - window.innerHeight;
 
         let zone;
-        if (scrollY < 2) {
-          zone = 'hero';
-        } else if (scrollY >= scrubEnd) {
-          zone = 'footer';
-        } else {
-          zone = 'scrub';
-        }
+        if (scrollY < 2)          { zone = 'hero'; }
+        else if (scrollY >= scrubEnd) { zone = 'footer'; }
+        else                       { zone = 'scrub'; }
 
         if (zone === lastZone) return;
         lastZone = zone;
 
-        // ─── HERO ZONE ─────────────────────────────────────
-        if (zone === 'hero') {
-          // Mostrar Hero
-          heroSection.style.display = 'block';
-          heroSection.style.visibility = 'visible';
-          heroSection.style.pointerEvents = 'auto';
-          
-          // Esconder Scrub e Footer INSTANTANEAMENTE
-          if (scrubPlayer) {
-            scrubPlayer.style.display = 'none';
-            scrubPlayer.style.visibility = 'hidden';
-          }
-          if (footerSection) {
-            footerSection.style.display = 'none';
-            footerSection.style.visibility = 'hidden';
-          }
-          
-          // Garantir que hero video está a tocar
-          const heroVideo = heroSection.querySelector('video');
-          if (heroVideo && heroVideo.paused) {
-            heroVideo.currentTime = 0;
-            heroVideo.play().catch(() => {});
-          }
+        // Hero content: opacity only — hero section stays in flow for stable layout
+        if (heroContent) heroContent.style.opacity = (zone === 'hero') ? '1' : '0';
+        if (heroVid) {
+          if (zone === 'hero') heroVid.play().catch(() => {});
+          else heroVid.pause();
         }
-        
-        // ─── SCRUB ZONE ────────────────────────────────────
-        else if (zone === 'scrub') {
-          // Esconder Hero e Footer
-          heroSection.style.display = 'none';
-          heroSection.style.visibility = 'hidden';
-          heroSection.style.pointerEvents = 'none';
-          
-          footerSection.style.display = 'none';
-          footerSection.style.visibility = 'hidden';
-          footerSection.style.pointerEvents = 'none';
-          
-          // Mostrar Scrub
-          if (scrubPlayer) {
-            scrubPlayer.style.display = 'block';
-            scrubPlayer.style.visibility = 'visible';
-          }
-          
-          // Pausar hero e footer videos
-          const heroVideo = heroSection.querySelector('video');
-          const footerVideo = footerSection.querySelector('video');
-          if (heroVideo) heroVideo.pause();
-          if (footerVideo) footerVideo.pause();
-        }
-        
-        // ─── FOOTER ZONE ───────────────────────────────────
-        else if (zone === 'footer') {
-          // Esconder Hero e Scrub
-          heroSection.style.display = 'none';
-          heroSection.style.visibility = 'hidden';
-          heroSection.style.pointerEvents = 'none';
-          
-          if (scrubPlayer) {
-            scrubPlayer.style.display = 'none';
-            scrubPlayer.style.visibility = 'hidden';
-          }
-          
-          // Mostrar Footer
-          footerSection.style.display = 'block';
-          footerSection.style.visibility = 'visible';
-          footerSection.style.pointerEvents = 'auto';
-          
-          // Garantir que footer video está a tocar
-          const footerVideo = footerSection.querySelector('video');
-          if (footerVideo && footerVideo.paused) {
-            footerVideo.currentTime = 0;
-            footerVideo.play().catch(() => {});
-          }
-          
-          // Pausar hero video
-          const heroVideo = heroSection.querySelector('video');
-          if (heroVideo) heroVideo.pause();
-        }
+
+        // Scrub player: visible only in scrub zone
+        if (scrubPlayer) scrubPlayer.style.opacity = (zone === 'scrub') ? '1' : '0';
+
+        // Footer: fixed overlay — display toggles instantly, no scroll animation
+        footerSection.style.display = (zone === 'footer') ? 'block' : 'none';
       }
 
       window.addEventListener('scroll', updateZoneVisibility, { passive: true });
