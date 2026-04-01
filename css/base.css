@@ -6,7 +6,7 @@
 }
 
 html {
-  scroll-behavior: auto; /* GSAP handles smooth scrolling */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -209,7 +209,169 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
-/* === REDUCED MOTION === */
+/* ============================================================
+   LOADING SCREEN
+   Shown while videos preload. Fades out when all are ready.
+   ============================================================ */
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+#loading-screen.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  width: min(320px, 80vw);
+  text-align: center;
+}
+
+.loader__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.loader__subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--space-md);
+}
+
+.loader__progress-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.loader__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--c-purple);
+  border-radius: var(--radius-full);
+  transition: width 0.3s var(--ease-out);
+}
+
+.loader__percent {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  color: var(--text-tertiary);
+}
+
+/* ============================================================
+   SCROLL LOCK — body while preloading
+   ============================================================ */
+
+body.is-loading {
+  overflow: hidden;
+}
+
+/* ============================================================
+   SCROLL CONTAINER — scroll-snap host
+   ============================================================ */
+
+#scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  /* Smooth scrolling for keyboard nav / scrollIntoView */
+  scroll-behavior: smooth;
+  /* Hide scrollbar visually while keeping functionality */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+
+#scroll-container::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari */
+}
+
+/* ============================================================
+   VIDEO SECTIONS — each is a full-screen scroll-snap stop
+   ============================================================ */
+
+.video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* Prevent skipping sections on fast scroll */
+}
+
+/* Cinematic sections (scene_1, transitions) — no content overlay */
+.video-section--cinematic {
+  cursor: default;
+}
+
+/* Footer section — allows internal scroll for tall content */
+.video-section--footer {
+  height: auto;
+  min-height: 100vh;
+  /* Does not use scroll-snap-stop: always so the user
+     can scroll naturally through the footer content   */
+}
+
+/* Full-cover background video */
+.video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Content overlay — sits above the video */
+.video-section__content {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--scene-padding);
+  /* Subtle dark gradient so text is always readable */
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 18, 0.15) 0%,
+    rgba(13, 13, 18, 0.55) 100%
+  );
+}
+
+/* Footer content override — scrollable, full height */
+.video-section__content--footer {
+  height: auto;
+  min-height: 100vh;
+  align-items: flex-start;
+  padding: var(--space-2xl) var(--scene-padding);
+  background: rgba(13, 13, 18, 0.75); /* More opaque for readability */
+}
+
+/* ============================================================
+   REDUCED MOTION — pause videos, disable transitions
+   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -219,5 +381,14 @@ h1, h2, h3, h4 {
 
   .scroll-indicator__arrow::after {
     animation: none;
+  }
+
+  /* Pause auto-playing videos for users who prefer reduced motion */
+  .video-bg {
+    animation-play-state: paused;
+  }
+
+  #scroll-container {
+    scroll-snap-type: none; /* Restore natural scroll for reduced motion */
   }
 }
