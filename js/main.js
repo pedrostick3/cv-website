@@ -125,14 +125,51 @@ async function boot() {
       scrubber.init();
     }
 
-    // 5. Timeline dot interaction (footer)
-    document.querySelectorAll('.scene-11__timeline-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.scene-11__timeline-item')
-          .forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
+    // 5. Instant hero↔scrub and scrub↔footer transitions
+    //    Hero shows when scrollY is 0 (top of page).
+    //    Footer fades in when scrolled past all scrub videos.
+    //    Both use visibility/opacity so they don't collapse layout.
+    const heroSection   = document.getElementById('hero-section');
+    const footerSection = document.getElementById('footer-section');
+    const scrubPlayer   = document.getElementById('scrub-player');
+
+    if (heroSection && footerSection && scrubWrapper) {
+      let lastZone = 'hero';
+
+      function updateZoneVisibility() {
+        const scrollY  = window.scrollY;
+        // Hero occupies exactly 100vh at the top
+        const heroEnd  = heroSection.offsetHeight;
+        // Scrub wrapper offset + its full scroll height
+        const scrubEnd = scrubWrapper.offsetTop + scrubWrapper.offsetHeight - window.innerHeight;
+
+        let zone;
+        if (scrollY < 2) {
+          zone = 'hero';
+        } else if (scrollY >= scrubEnd) {
+          zone = 'footer';
+        } else {
+          zone = 'scrub';
+        }
+
+        if (zone === lastZone) return;
+        lastZone = zone;
+
+        // Hero: hide content overlay when scrolled, but keep section for layout
+        const heroContent = heroSection.querySelector('.hero-content');
+        if (heroContent) heroContent.style.opacity = (zone === 'hero') ? '1' : '0';
+
+        // Scrub player: show only in scrub zone (and briefly at edges)
+        if (scrubPlayer) scrubPlayer.style.opacity = (zone === 'hero') ? '0' : '1';
+
+        // Footer: fade in at the bottom
+        footerSection.style.opacity = (zone === 'footer') ? '1' : '0';
+        footerSection.style.pointerEvents = (zone === 'footer') ? '' : 'none';
+      }
+
+      window.addEventListener('scroll', updateZoneVisibility, { passive: true });
+      updateZoneVisibility();
+    }
 
     // 6. Unlock scroll and remove loading screen
     hideLoadingScreen();

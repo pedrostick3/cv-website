@@ -304,6 +304,7 @@ body.is-loading {
 #footer-section {
   min-height: 100vh;
   height: auto;
+  transition: opacity 0.15s ease-out;
 }
 
 /* Full-cover background video (hero & footer) */
@@ -332,6 +333,7 @@ body.is-loading {
     rgba(13, 13, 18, 0.1) 0%,
     rgba(13, 13, 18, 0.5) 100%
   );
+  transition: opacity 0.15s ease-out;
 }
 
 /* Footer content layer */
@@ -345,6 +347,23 @@ body.is-loading {
   justify-content: center;
   padding: var(--space-2xl) var(--scene-padding);
   background: rgba(13, 13, 18, 0.78);
+}
+
+/* Clean footer — no dark overlay, content in bottom-right */
+.footer-content--clean {
+  background: none;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 100vh;
+  padding: var(--space-xl) var(--space-2xl);
+}
+
+.scene-11__footer-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  pointer-events: auto;
 }
 
 /* ============================================================
@@ -367,6 +386,7 @@ body.is-loading {
   height: 100vh;
   overflow: hidden;
   background: var(--bg-primary); /* fallback while first frame loads */
+  transition: opacity 0.15s ease-out;
 }
 
 /* ── Scrub video elements (all stacked, only .is-active visible) ── */
