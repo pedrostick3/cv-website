@@ -1,144 +1,129 @@
 /**
- * ScrollController — manages section-based scroll-snap with video coordination.
+ * VideoScrubber — maps the page scroll position to video playback time.
  *
- * Uses IntersectionObserver to detect which section is active (≥50% visible),
- * then tells VideoManager to play that section's video and pause all others.
- * Also provides keyboard navigation (↑/↓ arrows, Page Up/Down).
+ * All "middle" videos (between the hero loop and the footer loop) are stacked
+ * inside #scrub-player. The user's scroll position within #scrub-wrapper is
+ * translated to a position in the combined timeline of all middle videos.
+ *
+ * Scroll down  → advance video forward (next frames / next video)
+ * Scroll up    → go backward (previous frames / previous video)
+ *
+ * Hero and footer videos are unaffected — they loop independently.
  */
-export class ScrollController {
+export class VideoScrubber {
   /**
-   * @param {import('./video-manager.js').VideoManager} videoManager
-   * @param {HTMLElement} scrollContainer
+   * @param {HTMLElement}        wrapper          - #scrub-wrapper (tall scroll container)
+   * @param {HTMLVideoElement[]} videoEls         - middle videos in playback order
+   * @param {number}             pixelsPerSecond  - scroll pixels per second of video (scrub speed)
    */
-  constructor(videoManager, scrollContainer) {
-    this.videoManager = videoManager;
-    this.container = scrollContainer;
-    this.sections = [];
-    this.currentIndex = -1;
-    this.observer = null;
-    this._isScrolling = false;
-    this._scrollTimeout = null;
+  constructor(wrapper, videoEls, pixelsPerSecond = 200) {
+    this.wrapper   = wrapper;
+    this.videoEls  = videoEls;
+    this.pps       = pixelsPerSecond;
+
+    /** @type {Array<{el: HTMLVideoElement, startTime: number, endTime: number, duration: number}>} */
+    this.timeline      = [];
+    this.totalDuration = 0;
+    this.activeIndex   = -1;
+
+    this._onScroll = this._onScroll.bind(this);
   }
 
+  /**
+   * Build the timeline from loaded video durations, size the wrapper, and
+   * attach the scroll listener. Call after all videos have canplaythrough.
+   */
   init() {
-    this.sections = [...this.container.querySelectorAll('.video-section')];
+    // Build cumulative timeline
+    let cumTime = 0;
+    this.videoEls.forEach(el => {
+      const dur = isFinite(el.duration) ? el.duration : 0;
+      this.timeline.push({ el, startTime: cumTime, endTime: cumTime + dur, duration: dur });
+      cumTime += dur;
+    });
+    this.totalDuration = cumTime;
 
-    this._setupIntersectionObserver();
-    this._setupKeyboardNav();
-    this._setupTimeline();
-
-    // Activate the first section immediately
-    if (this.sections.length > 0) {
-      this._activate(0);
+    if (this.totalDuration === 0) {
+      console.warn('[VideoScrubber] Total duration is 0 — videos may not have loaded metadata.');
+      return;
     }
-  }
 
-  /** IntersectionObserver: play video when section is ≥50% visible */
-  _setupIntersectionObserver() {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            const section = entry.target;
-            const newIndex = this.sections.indexOf(section);
-            if (newIndex !== -1 && newIndex !== this.currentIndex) {
-              this._activate(newIndex);
-            }
-          }
-        });
-      },
-      {
-        root: this.container,
-        threshold: 0.5,
-      }
+    // Make wrapper tall enough to hold the entire scrub scroll distance
+    const scrollHeight = Math.round(this.totalDuration * this.pps);
+    this.wrapper.style.height = `${scrollHeight}px`;
+
+    // Show first frame immediately
+    this._seekToTime(0);
+
+    // Listen to scroll (passive — no preventDefault needed)
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    console.log(
+      `[VideoScrubber] Ready — ${this.videoEls.length} videos, ` +
+      `${this.totalDuration.toFixed(1)}s total, ` +
+      `${scrollHeight}px scroll height`
     );
-
-    this.sections.forEach(section => this.observer.observe(section));
   }
 
-  /** Keyboard navigation: arrow keys and Page Up/Down */
-  _setupKeyboardNav() {
-    document.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'ArrowDown':
-        case 'PageDown':
-          e.preventDefault();
-          this._scrollToSection(this.currentIndex + 1);
-          break;
-        case 'ArrowUp':
-        case 'PageUp':
-          e.preventDefault();
-          this._scrollToSection(this.currentIndex - 1);
-          break;
-        case 'Home':
-          e.preventDefault();
-          this._scrollToSection(0);
-          break;
-        case 'End':
-          e.preventDefault();
-          this._scrollToSection(this.sections.length - 1);
-          break;
+  // ─── Private ──────────────────────────────────────────────────────────────
+
+  _onScroll() {
+    // Absolute top of the scrub wrapper relative to the document
+    const wrapperTop  = this.wrapper.getBoundingClientRect().top + window.scrollY;
+    const scrolled    = window.scrollY - wrapperTop;
+    const maxScroll   = this.wrapper.offsetHeight - window.innerHeight;
+
+    if (maxScroll <= 0) return;
+
+    if (scrolled <= 0) {
+      // User is above the scrub zone (hero visible) — clamp to first frame
+      this._seekToTime(0);
+      return;
+    }
+
+    if (scrolled >= maxScroll) {
+      // User is below the scrub zone (footer visible) — clamp to last frame
+      this._seekToTime(this.totalDuration - 0.001);
+      return;
+    }
+
+    const targetTime = (scrolled / maxScroll) * this.totalDuration;
+    this._seekToTime(targetTime);
+  }
+
+  _seekToTime(time) {
+    // Find which video in the timeline this time belongs to
+    let idx = this.timeline.findIndex(v => time >= v.startTime && time < v.endTime);
+    if (idx === -1) idx = this.timeline.length - 1; // clamp to last
+
+    const entry     = this.timeline[idx];
+    const localTime = Math.max(0, Math.min(time - entry.startTime, entry.duration - 0.001));
+
+    // Switch the active (visible) video if needed
+    if (idx !== this.activeIndex) {
+      if (this.activeIndex >= 0) {
+        this.timeline[this.activeIndex].el.classList.remove('is-active');
       }
-    });
-  }
+      entry.el.classList.add('is-active');
+      this.activeIndex = idx;
+      this._updateOverlays(idx);
+    }
 
-  /** Timeline dot click interaction in the footer section */
-  _setupTimeline() {
-    document.querySelectorAll('.scene-11__timeline-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.scene-11__timeline-item').forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-      });
-    });
-  }
-
-  /**
-   * Activate a section by index: update state + play its video.
-   * @param {number} index
-   */
-  _activate(index) {
-    if (index < 0 || index >= this.sections.length) return;
-
-    this.currentIndex = index;
-    const section = this.sections[index];
-    const sectionId = section.dataset.section;
-
-    // Pause all others, play this one
-    this.videoManager.pauseAllExcept(sectionId);
-    this.videoManager.play(sectionId);
-
-    // Update ARIA
-    this.sections.forEach((s, i) => {
-      s.setAttribute('aria-current', i === index ? 'true' : 'false');
-    });
-  }
-
-  /**
-   * Scroll the container to a section by index (clamped).
-   * @param {number} index
-   */
-  _scrollToSection(index) {
-    const clamped = Math.max(0, Math.min(index, this.sections.length - 1));
-    const target = this.sections[clamped];
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Seek: only update if the difference is meaningful (avoids micro-jitter)
+    if (Math.abs(entry.el.currentTime - localTime) > 0.033) {
+      entry.el.currentTime = localTime;
     }
   }
 
-  /** Navigate to the next section */
-  next() {
-    this._scrollToSection(this.currentIndex + 1);
-  }
-
-  /** Navigate to the previous section */
-  prev() {
-    this._scrollToSection(this.currentIndex - 1);
+  /** Show the overlay matching the active video index, hide all others. */
+  _updateOverlays(activeVideoIndex) {
+    document.querySelectorAll('.scrub-overlay').forEach(el => {
+      const vidIdx = parseInt(el.dataset.videoIndex, 10);
+      el.hidden = vidIdx !== activeVideoIndex;
+    });
   }
 
   destroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-      this.observer = null;
-    }
+    window.removeEventListener('scroll', this._onScroll);
   }
 }
