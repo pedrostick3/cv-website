@@ -11,16 +11,11 @@
 }
 
 /* ── Hero: prevent motto / scroll-indicator overlap on short screens ── */
-@media (max-width: 767px) {
-  .scene-01__content {
-    /* Reserve room at the bottom so the absolutely-positioned
-       scroll indicator never overlaps the motto */
-    padding-bottom: 4rem;
-  }
-
-  .scene-01__title {
-    /* Slightly tighten the gap so the block fits on one screen */
-    margin-bottom: var(--space-md);
+@media (max-height: 480px) {
+  .scroll-indicator {
+    left: auto;
+    right: var(--scene-padding);
+    bottom: var(--space-xl);
   }
 }
 
