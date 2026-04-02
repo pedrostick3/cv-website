@@ -28,6 +28,9 @@ export class VideoScrubber {
 
     this._onScroll = this._onScroll.bind(this);
     this._rafId    = null;
+    // Touch/mobile devices use coarse pointer — allow larger seek gaps to
+    // reduce decode pressure on slower CPUs without visible quality loss.
+    this._seekThreshold = window.matchMedia('(pointer: coarse)').matches ? 0.066 : 0.033;
   }
 
   /**
@@ -119,8 +122,9 @@ export class VideoScrubber {
       this._updateOverlays(idx);
     }
 
-    // Seek: only update if the difference is meaningful (avoids micro-jitter)
-    if (Math.abs(entry.el.currentTime - localTime) > 0.033) {
+    // Seek: only update if the difference is meaningful (avoids micro-jitter).
+    // Threshold is 0.033s on desktop (30fps), 0.066s on touch devices (15fps).
+    if (Math.abs(entry.el.currentTime - localTime) > this._seekThreshold) {
       entry.el.currentTime = localTime;
     }
   }
