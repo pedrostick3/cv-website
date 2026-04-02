@@ -131,10 +131,22 @@ export class VideoScrubber {
       this._updateOverlays(idx);
     }
 
-    // Seek: only update if the difference is meaningful (avoids micro-jitter).
+    // Skip if the decoder is still processing a previous seek — this prevents
+    // seek queue build-up which is the main cause of jank on mobile Chrome.
+    // The rAF + interval throttle above already limits frequency; this makes
+    // it adaptive: on slow devices seeks are skipped until the decoder is ready.
+    if (entry.el.seeking) return;
+
+    // Only seek if the difference is meaningful (avoids micro-jitter).
     // Threshold is 0.033s on desktop (30fps), 0.066s on touch devices (15fps).
     if (Math.abs(entry.el.currentTime - localTime) > this._seekThreshold) {
-      entry.el.currentTime = localTime;
+      // fastSeek() is designed for scrubbing — more efficient code path in
+      // browsers that support it (Chrome 90+, Safari). Falls back to currentTime.
+      if (entry.el.fastSeek) {
+        entry.el.fastSeek(localTime);
+      } else {
+        entry.el.currentTime = localTime;
+      }
     }
   }
 
