@@ -145,13 +145,15 @@ async function boot() {
       function updateZoneVisibility() {
         const scrollY = window.scrollY;
 
-        // Footer detection: check distance from actual document bottom instead of
-        // using window.innerHeight in the formula. On mobile the browser chrome
-        // (address bar) causes window.innerHeight to fluctuate, which makes a
-        // scrubEnd-based check unstable and causes the footer to flicker in/out.
-        // A 50px tolerance absorbs any address-bar resize or rubber-band bounce.
+        // Footer detection: use clientHeight instead of innerHeight.
+        // On mobile, window.innerHeight fluctuates when the browser address bar
+        // appears/disappears (~60px swing), causing scrubEnd-based checks to
+        // flicker the footer zone. document.documentElement.clientHeight is
+        // the stable CSS viewport height and doesn't change with the address bar.
+        // 100px tolerance also absorbs iOS rubber-band over-scroll.
         const docHeight = document.documentElement.scrollHeight;
-        const atBottom  = (scrollY + window.innerHeight) >= (docHeight - 50);
+        const clientH   = document.documentElement.clientHeight;
+        const atBottom  = (scrollY + clientH) >= (docHeight - 100);
 
         let zone;
         if (scrollY < 2)   { zone = 'hero'; }
