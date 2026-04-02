@@ -9,7 +9,9 @@
   },
   "rotate": {
     "hint": "Rotate your phone for a more immersive experience",
-    "dismiss": "Continue anyway"
+    "dismiss": "Continue anyway",
+    "rotate_btn": "Wow! Rotate!",
+    "toggle_aria": "Toggle site rotation"
   },
   "scene": {
     "01": {

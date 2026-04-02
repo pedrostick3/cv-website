@@ -39,7 +39,10 @@
         <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
       </svg>
       <p class="rotate-indicator__text" data-i18n="rotate.hint">Rode o telemóvel para uma experiência mais imersiva</p>
-      <button class="rotate-indicator__dismiss" id="rotate-dismiss" data-i18n="rotate.dismiss">Continuar assim</button>
+      <div class="rotate-indicator__actions">
+        <button class="rotate-indicator__rotate-btn" id="rotate-do" data-i18n="rotate.rotate_btn">Uau! Rodar!</button>
+        <button class="rotate-indicator__dismiss" id="rotate-dismiss" data-i18n="rotate.dismiss">Continuar assim</button>
+      </div>
     </div>
   </div>
 
@@ -62,6 +65,14 @@
     <button class="lang-toggle__btn active" data-lang="pt">PT</button>
     <button class="lang-toggle__btn" data-lang="en">EN</button>
   </div>
+
+  <!-- ========== PERSISTENT ROTATE TOGGLE (mobile portrait only) ========== -->
+  <button class="rotate-toggle-btn" id="rotate-toggle" aria-label="Alternar rotação do site" hidden>
+    <!-- Rotate/phone icon -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+    </svg>
+  </button>
 
   <!-- =====================================================================
        HERO SECTION — hero_section_loop.mp4 (loops continuously)

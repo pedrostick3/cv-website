@@ -182,11 +182,65 @@ async function boot() {
       updateZoneVisibility();
     }
 
-    // 6. Rotate indicator dismiss
-    const rotateBtn = document.getElementById('rotate-dismiss');
-    const rotateEl  = document.getElementById('rotate-indicator');
-    if (rotateBtn && rotateEl) {
-      rotateBtn.addEventListener('click', () => rotateEl.classList.add('is-dismissed'));
+    // 6. Rotate indicator — dismiss + programmatic rotate
+    const rotateEl        = document.getElementById('rotate-indicator');
+    const rotateDismiss   = document.getElementById('rotate-dismiss');
+    const rotateDoBtn     = document.getElementById('rotate-do');
+    const rotateToggleBtn = document.getElementById('rotate-toggle');
+
+    // "Continuar assim" — just dismiss
+    if (rotateDismiss && rotateEl) {
+      rotateDismiss.addEventListener('click', () => {
+        rotateEl.classList.add('is-dismissed');
+      });
+    }
+
+    // "Uau! Rodar!" — apply CSS rotation and show persistent toggle
+    function enableRotation() {
+      document.documentElement.classList.add('is-rotated');
+      window.scrollTo(0, 0);
+      if (rotateEl)        rotateEl.classList.add('is-dismissed');
+      if (rotateToggleBtn) {
+        rotateToggleBtn.hidden = false;
+        rotateToggleBtn.classList.add('is-active');
+      }
+    }
+
+    function disableRotation() {
+      document.documentElement.classList.remove('is-rotated');
+      window.scrollTo(0, 0);
+      if (rotateToggleBtn) rotateToggleBtn.classList.remove('is-active');
+      // Re-show the rotate indicator (unless user had explicitly dismissed it before)
+      if (rotateEl && rotateEl.classList.contains('is-dismissed')) {
+        rotateEl.classList.remove('is-dismissed');
+      }
+    }
+
+    if (rotateDoBtn) {
+      rotateDoBtn.addEventListener('click', enableRotation);
+    }
+
+    // Persistent toggle — shown on portrait mobile, stays after dismiss
+    if (rotateToggleBtn) {
+      // Show the button on portrait screens < 870px
+      const portraitMQ = window.matchMedia('(max-width: 869px) and (orientation: portrait)');
+      const syncToggleVisibility = (mq) => {
+        if (mq.matches) {
+          rotateToggleBtn.hidden = false;
+        } else if (!document.documentElement.classList.contains('is-rotated')) {
+          rotateToggleBtn.hidden = true;
+        }
+      };
+      portraitMQ.addEventListener('change', syncToggleVisibility);
+      syncToggleVisibility(portraitMQ);
+
+      rotateToggleBtn.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('is-rotated')) {
+          disableRotation();
+        } else {
+          enableRotation();
+        }
+      });
     }
 
     // 7. Unlock scroll and remove loading screen

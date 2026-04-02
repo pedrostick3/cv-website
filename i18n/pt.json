@@ -9,7 +9,9 @@
   },
   "rotate": {
     "hint": "Rode o telemóvel para uma experiência mais imersiva",
-    "dismiss": "Continuar assim"
+    "dismiss": "Continuar assim",
+    "rotate_btn": "Uau! Rodar!",
+    "toggle_aria": "Alternar rotação do site"
   },
   "scene": {
     "01": {

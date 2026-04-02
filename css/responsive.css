@@ -10,6 +10,58 @@
   bottom: var(--space-2xl);
 }
 
+/* ── Hero: prevent motto / scroll-indicator overlap on short screens ── */
+@media (max-width: 767px) {
+  .scene-01__content {
+    /* Reserve room at the bottom so the absolutely-positioned
+       scroll indicator never overlaps the motto */
+    padding-bottom: 4rem;
+  }
+
+  .scene-01__title {
+    /* Slightly tighten the gap so the block fits on one screen */
+    margin-bottom: var(--space-md);
+  }
+}
+
+/* ── Scrub overlays: limit to left ~1/3 on mobile ── */
+@media (max-width: 869px) {
+  .scrub-overlay__content--bottom-left {
+    max-width: 38vw;        /* ≈ 1/3 of screen, keeps right side clear */
+    bottom: var(--space-lg);
+    padding-right: 0;
+  }
+
+  /* Scale overlay heading + meta text way down */
+  .scrub-overlay__content--bottom-left h2 {
+    font-size: var(--fs-small) !important;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+
+  .scrub-overlay__content--bottom-left p {
+    font-size: 0.65rem !important;
+    margin-top: 0.2rem;
+  }
+
+  /* Compact tags */
+  .scrub-overlay__content--bottom-left .tag-row {
+    gap: 0.2rem;
+    margin-top: 0.25rem;
+  }
+
+  .scrub-overlay__content--bottom-left .tag {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.3rem;
+  }
+
+  /* Bottom-center overlay (scene 10) — keep reasonable width */
+  .scrub-overlay__content--bottom-center {
+    max-width: 80vw;
+    bottom: var(--space-lg);
+  }
+}
+
 /* === TABLET (768px+) === */
 @media (min-width: 768px) {
   .scene-01__socials {

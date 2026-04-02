@@ -546,6 +546,96 @@ body.is-loading {
   display: none;
 }
 
+/* Buttons row inside the rotate indicator */
+.rotate-indicator__actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* "Uau! Rodar!" — filled/accent button */
+.rotate-indicator__rotate-btn {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag);
+  color: var(--bg-primary);
+  background: var(--c-purple-light);
+  border: 1px solid var(--c-purple-light);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.rotate-indicator__rotate-btn:hover {
+  opacity: 0.85;
+}
+
+/* ============================================================
+   PERSISTENT ROTATE TOGGLE — shown on portrait mobile
+   Appears below the PT/EN language toggle.
+   ============================================================ */
+
+.rotate-toggle-btn {
+  position: fixed;
+  /* below the lang-toggle (≈ 1rem top + ~38px height + 6px gap) */
+  top: calc(var(--space-md) + 46px);
+  right: var(--space-md);
+  z-index: var(--z-nav);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rotate-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.rotate-toggle-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.rotate-toggle-btn.is-active {
+  background: var(--c-purple-light);
+  border-color: var(--c-purple-light);
+  color: var(--bg-primary);
+}
+
+/* ============================================================
+   CSS ROTATION MODE — simulates landscape for phones with
+   rotation lock enabled (e.g. iPhone with Screen Rotation Lock).
+   Applied by JS when "Uau! Rodar!" is clicked.
+   ============================================================ */
+
+html.is-rotated {
+  overflow: hidden;
+}
+
+html.is-rotated body {
+  transform-origin: top left;
+  /* rotate -90° then shift up by the viewport width so the
+     rotated content starts at the top-left of the screen */
+  transform: rotate(-90deg) translateY(-100vw);
+  width: 100vh;
+  height: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* ============================================================
    FOOTER PADDING — mobile (400px–870px)
    ============================================================ */
