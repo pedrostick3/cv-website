@@ -144,14 +144,19 @@ async function boot() {
 
       function updateZoneVisibility() {
         const scrollY = window.scrollY;
-        // scrubWrapper.offsetTop varies: heroHeight when hero is shown, 0 when hidden.
-        // Always recalculate live so scrubEnd is correct regardless of hero visibility.
-        const scrubEnd = scrubWrapper.offsetTop + scrubWrapper.offsetHeight - window.innerHeight;
+
+        // Footer detection: check distance from actual document bottom instead of
+        // using window.innerHeight in the formula. On mobile the browser chrome
+        // (address bar) causes window.innerHeight to fluctuate, which makes a
+        // scrubEnd-based check unstable and causes the footer to flicker in/out.
+        // A 50px tolerance absorbs any address-bar resize or rubber-band bounce.
+        const docHeight = document.documentElement.scrollHeight;
+        const atBottom  = (scrollY + window.innerHeight) >= (docHeight - 50);
 
         let zone;
-        if (scrollY < 2)              { zone = 'hero'; }
-        else if (scrollY >= scrubEnd) { zone = 'footer'; }
-        else                          { zone = 'scrub'; }
+        if (scrollY < 2)   { zone = 'hero'; }
+        else if (atBottom) { zone = 'footer'; }
+        else               { zone = 'scrub'; }
 
         if (zone === lastZone) return;
         lastZone = zone;

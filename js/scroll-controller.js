@@ -27,6 +27,7 @@ export class VideoScrubber {
     this.activeIndex   = -1;
 
     this._onScroll = this._onScroll.bind(this);
+    this._rafId    = null;
   }
 
   /**
@@ -68,6 +69,17 @@ export class VideoScrubber {
   // ─── Private ──────────────────────────────────────────────────────────────
 
   _onScroll() {
+    // Throttle to one seek per animation frame — prevents mobile CPUs from
+    // being overwhelmed by rapid scroll events triggering video.currentTime
+    // updates faster than frames can be decoded.
+    if (this._rafId) return;
+    this._rafId = requestAnimationFrame(() => {
+      this._rafId = null;
+      this._processScroll();
+    });
+  }
+
+  _processScroll() {
     // Absolute top of the scrub wrapper relative to the document
     const wrapperTop  = this.wrapper.getBoundingClientRect().top + window.scrollY;
     const scrolled    = window.scrollY - wrapperTop;
@@ -76,13 +88,11 @@ export class VideoScrubber {
     if (maxScroll <= 0) return;
 
     if (scrolled <= 0) {
-      // User is above the scrub zone (hero visible) — clamp to first frame
       this._seekToTime(0);
       return;
     }
 
     if (scrolled >= maxScroll) {
-      // User is below the scrub zone (footer visible) — clamp to last frame
       this._seekToTime(this.totalDuration - 0.001);
       return;
     }
