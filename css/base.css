@@ -161,7 +161,7 @@ h1, h2, h3, h4 {
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
-  color: var(--text-tertiary);
+  color: var(--text-primary);
   font-size: var(--fs-small);
   font-family: var(--font-mono);
 }
@@ -169,7 +169,7 @@ h1, h2, h3, h4 {
 .scroll-indicator__arrow {
   width: 20px;
   height: 30px;
-  border: 2px solid var(--text-tertiary);
+  border: 2px solid var(--text-primary);
   border-radius: 10px;
   position: relative;
 }
@@ -181,7 +181,7 @@ h1, h2, h3, h4 {
   left: 50%;
   width: 4px;
   height: 8px;
-  background: var(--text-tertiary);
+  background: var(--text-primary);
   border-radius: 2px;
   transform: translateX(-50%);
   animation: scroll-pulse 1.5s ease-in-out infinite;
