@@ -28,9 +28,13 @@ export class VideoScrubber {
 
     this._onScroll = this._onScroll.bind(this);
     this._rafId    = null;
-    // Touch/mobile devices use coarse pointer — allow larger seek gaps to
-    // reduce decode pressure on slower CPUs without visible quality loss.
-    this._seekThreshold = window.matchMedia('(pointer: coarse)').matches ? 0.066 : 0.033;
+    this._lastSeekTime = 0;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    // Touch/mobile: cap seeks at ~10fps (100ms) to avoid overwhelming the
+    // video decoder. Desktop: no extra cap beyond the rAF (up to 60fps).
+    this._seekInterval  = isTouchDevice ? 100 : 0;
+    // Touch/mobile: only seek if moved >2 frames; desktop: >1 frame.
+    this._seekThreshold = isTouchDevice ? 0.066 : 0.033;
   }
 
   /**
@@ -72,12 +76,17 @@ export class VideoScrubber {
   // ─── Private ──────────────────────────────────────────────────────────────
 
   _onScroll() {
-    // Throttle to one seek per animation frame — prevents mobile CPUs from
-    // being overwhelmed by rapid scroll events triggering video.currentTime
-    // updates faster than frames can be decoded.
+    // rAF ensures we never seek more than once per paint frame.
     if (this._rafId) return;
     this._rafId = requestAnimationFrame(() => {
       this._rafId = null;
+      // On mobile: additional hard cap so seeks never exceed ~10fps,
+      // giving the video decoder time to finish before the next seek.
+      if (this._seekInterval > 0) {
+        const now = performance.now();
+        if (now - this._lastSeekTime < this._seekInterval) return;
+        this._lastSeekTime = now;
+      }
       this._processScroll();
     });
   }

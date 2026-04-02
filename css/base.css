@@ -404,6 +404,10 @@ body.is-loading {
 
 .scrub-video.is-active {
   opacity: 1;
+  /* Promote to GPU compositor layer so video frame updates bypass the
+     main thread paint cycle — critical for smooth scrubbing on mobile. */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ── Scrub content overlays ── */
