@@ -223,7 +223,9 @@ async function boot() {
     // Persistent toggle — shown on portrait mobile, stays after dismiss
     if (rotateToggleBtn) {
       // Show the button on portrait screens < 870px
-      const portraitMQ = window.matchMedia('(max-width: 869px) and (orientation: portrait)');
+      const portraitMQ   = window.matchMedia('(max-width: 869px) and (orientation: portrait)');
+      const landscapeMQ  = window.matchMedia('(orientation: landscape)');
+
       const syncToggleVisibility = (mq) => {
         if (mq.matches) {
           rotateToggleBtn.hidden = false;
@@ -233,6 +235,16 @@ async function boot() {
       };
       portraitMQ.addEventListener('change', syncToggleVisibility);
       syncToggleVisibility(portraitMQ);
+
+      // When the phone physically rotates to landscape while CSS rotation is active,
+      // the two rotations combine and break the layout — cancel the CSS rotation.
+      landscapeMQ.addEventListener('change', (mq) => {
+        if (mq.matches && document.documentElement.classList.contains('is-rotated')) {
+          disableRotation();
+          // Don't re-show the rotate indicator — phone is already landscape
+          if (rotateEl) rotateEl.classList.add('is-dismissed');
+        }
+      });
 
       rotateToggleBtn.addEventListener('click', () => {
         if (document.documentElement.classList.contains('is-rotated')) {
