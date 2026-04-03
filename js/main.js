@@ -222,6 +222,37 @@ async function boot() {
       rotateDoBtn.addEventListener('click', enableRotation);
     }
 
+    // ── Touch remapping for sideways phone ──
+    // When in CSS-rotated mode and the user holds the phone sideways,
+    // their "landscape scroll" is a horizontal swipe in portrait coords.
+    // Convert horizontal touch delta → vertical window.scrollBy so the
+    // video scrubber still advances.
+    let _rotTouchStartX = 0;
+    let _rotTouchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      _rotTouchStartX = e.touches[0].clientX;
+      _rotTouchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!siteCanvas?.classList.contains('is-rotated')) return;
+
+      const dx = e.touches[0].clientX - _rotTouchStartX;
+      const dy = e.touches[0].clientY - _rotTouchStartY;
+
+      // Only remap if the gesture is predominantly horizontal
+      // (the user is holding the phone sideways and swiping "vertically"
+      //  in landscape, which iOS sees as horizontal in portrait).
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 3) {
+        // dx > 0 = swipe right in portrait = scroll up in landscape
+        // dx < 0 = swipe left  in portrait = scroll down in landscape
+        window.scrollBy(0, -dx);
+        _rotTouchStartX = e.touches[0].clientX;
+        _rotTouchStartY = e.touches[0].clientY;
+        e.preventDefault(); // prevent horizontal rubber-band bounce
+      }
+    }, { passive: false });
+
     // Persistent toggle — shown on portrait mobile, stays after dismiss
     if (rotateToggleBtn) {
       // Show the button on portrait screens < 870px
@@ -231,7 +262,7 @@ async function boot() {
       const syncToggleVisibility = (mq) => {
         if (mq.matches) {
           rotateToggleBtn.hidden = false;
-        } else if (!document.documentElement.classList.contains('is-rotated')) {
+        } else if (!siteCanvas?.classList.contains('is-rotated')) {
           rotateToggleBtn.hidden = true;
         }
       };

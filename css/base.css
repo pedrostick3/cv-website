@@ -624,7 +624,10 @@ body.is-loading {
   transform-origin: top left;
   transform: translateY(100vh) rotate(-90deg);
   width: 100vh;   /* landscape width = portrait height */
-  overflow-x: hidden;
+  /* clip, NOT hidden — 'hidden' creates a scroll container which
+     breaks position:sticky on #scrub-player inside #scrub-wrapper.
+     'clip' provides the same visual clipping without that side-effect. */
+  overflow-x: clip;
 }
 
 /* ============================================================
