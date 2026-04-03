@@ -618,22 +618,17 @@ body.is-loading {
    ============================================================ */
 
 html.is-rotated {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 html.is-rotated body {
   transform-origin: top left;
-  /* rotate -90° then shift up by the viewport width so the
-     rotated content starts at the top-left of the screen */
-  transform: rotate(-90deg) translateY(-100vw);
-  width: 100vh;
-  height: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: scroll;
+  /* translateY(100vh) shifts the body down by the viewport height,
+     then rotate(-90deg) swings it back CCW so the content fills
+     the screen in landscape orientation. */
+  transform: translateY(100vh) rotate(-90deg);
+  width: 100vh;   /* landscape width = portrait height */
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* ============================================================
