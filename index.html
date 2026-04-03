@@ -75,6 +75,12 @@
   </button>
 
   <!-- =====================================================================
+       SITE CANVAS — receives the CSS rotation transform.
+       Wrapping this instead of <body> keeps window.scrollY alive on iOS.
+       ===================================================================== -->
+  <div id="site-canvas">
+
+  <!-- =====================================================================
        HERO SECTION — hero_section_loop.mp4 (loops continuously)
        Page starts here. User scrolls down to enter the scrub zone.
        ===================================================================== -->
@@ -343,6 +349,8 @@
       </div>
     </div>
   </section>
+
+  </div><!-- #site-canvas -->
 
 </body>
 </html>

@@ -195,9 +195,11 @@ async function boot() {
       });
     }
 
+    const siteCanvas = document.getElementById('site-canvas');
+
     // "Uau! Rodar!" — apply CSS rotation and show persistent toggle
     function enableRotation() {
-      document.documentElement.classList.add('is-rotated');
+      siteCanvas?.classList.add('is-rotated');
       window.scrollTo(0, 0);
       if (rotateEl)        rotateEl.classList.add('is-dismissed');
       if (rotateToggleBtn) {
@@ -207,7 +209,7 @@ async function boot() {
     }
 
     function disableRotation() {
-      document.documentElement.classList.remove('is-rotated');
+      siteCanvas?.classList.remove('is-rotated');
       window.scrollTo(0, 0);
       if (rotateToggleBtn) rotateToggleBtn.classList.remove('is-active');
       // Re-show the rotate indicator (unless user had explicitly dismissed it before)
@@ -239,7 +241,7 @@ async function boot() {
       // When the phone physically rotates to landscape while CSS rotation is active,
       // the two rotations combine and break the layout — cancel the CSS rotation.
       landscapeMQ.addEventListener('change', (mq) => {
-        if (mq.matches && document.documentElement.classList.contains('is-rotated')) {
+        if (mq.matches && siteCanvas?.classList.contains('is-rotated')) {
           disableRotation();
           // Don't re-show the rotate indicator — phone is already landscape
           if (rotateEl) rotateEl.classList.add('is-dismissed');
@@ -247,7 +249,7 @@ async function boot() {
       });
 
       rotateToggleBtn.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('is-rotated')) {
+        if (siteCanvas?.classList.contains('is-rotated')) {
           disableRotation();
         } else {
           enableRotation();

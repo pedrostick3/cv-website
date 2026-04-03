@@ -617,15 +617,11 @@ body.is-loading {
    Applied by JS when "Uau! Rodar!" is clicked.
    ============================================================ */
 
-html.is-rotated {
-  overflow-x: hidden;
-}
-
-html.is-rotated body {
+/* #site-canvas wraps hero + scrub + footer.
+   Transforming it (instead of <body>) keeps window.scrollY alive on iOS
+   so the video scrubber and zone detection keep working. */
+#site-canvas.is-rotated {
   transform-origin: top left;
-  /* translateY(100vh) shifts the body down by the viewport height,
-     then rotate(-90deg) swings it back CCW so the content fills
-     the screen in landscape orientation. */
   transform: translateY(100vh) rotate(-90deg);
   width: 100vh;   /* landscape width = portrait height */
   overflow-x: hidden;
