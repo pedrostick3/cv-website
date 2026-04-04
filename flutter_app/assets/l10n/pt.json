@@ -1,0 +1,52 @@
+{
+  "lang": "pt",
+  "meta": {
+    "title": "Pedro Dionísio — AI Engineer & Full-Stack Developer",
+    "description": "Portfolio pessoal de Pedro Dionísio."
+  },
+  "rotate": {
+    "hint": "Rode o telemóvel para uma experiência mais imersiva",
+    "dismiss": "Continuar assim",
+    "rotate_btn": "Uau! Rodar!"
+  },
+  "scene": {
+    "01": {
+      "greeting": "Olá, eu sou o",
+      "name_first": "Pedro",
+      "name_last": "Dionísio",
+      "motto": "\" Never Give Up! \"",
+      "scroll_hint": "scroll"
+    },
+    "02": {
+      "title": "Modelação 3D em Itália",
+      "subtitle": "EGEA, Cosenza — Erasmus+ 2015"
+    },
+    "03": {
+      "title": "Reparação de Telemóveis",
+      "subtitle": "CTDI Lisboa — Estágio 2016"
+    },
+    "04": {
+      "title": "Eletrónica & IoT"
+    },
+    "05": {
+      "title": "Robótica & Sistemas Embebidos"
+    },
+    "07": {
+      "title": "Apps Móveis & Backend",
+      "subtitle": "InspireIT · 2021-2024 · 13+ apps"
+    },
+    "09": {
+      "title": "Competências AI",
+      "subtitle": "8 PoCs · RAG · MCP · LangChain · Fine-tuning"
+    },
+    "10": {
+      "title": "Estava a sonhar?",
+      "subtitle": "\"Quando for grande quero ser um cientista inventor e quero melhorar a vida das pessoas!\""
+    },
+    "11": {
+      "download_full_pt": "CV Completo (PT)",
+      "download_full_en": "CV Completo (EN)",
+      "download_ai_en": "CV AI (EN)"
+    }
+  }
+}

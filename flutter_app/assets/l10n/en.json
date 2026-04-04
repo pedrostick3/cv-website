@@ -1,0 +1,52 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "Pedro Dionísio — AI Engineer & Full-Stack Developer",
+    "description": "Personal portfolio of Pedro Dionísio."
+  },
+  "rotate": {
+    "hint": "Rotate your phone for a more immersive experience",
+    "dismiss": "Continue anyway",
+    "rotate_btn": "Wow! Rotate!"
+  },
+  "scene": {
+    "01": {
+      "greeting": "Hi, I'm",
+      "name_first": "Pedro",
+      "name_last": "Dionísio",
+      "motto": "\" Never Give Up! \"",
+      "scroll_hint": "scroll"
+    },
+    "02": {
+      "title": "3D Modeling in Italy",
+      "subtitle": "EGEA, Cosenza — Erasmus+ 2015"
+    },
+    "03": {
+      "title": "Mobile Phone Repair",
+      "subtitle": "CTDI Lisbon — Internship 2016"
+    },
+    "04": {
+      "title": "Electronics & IoT"
+    },
+    "05": {
+      "title": "Robotics & Embedded Systems"
+    },
+    "07": {
+      "title": "Mobile Apps & Backend",
+      "subtitle": "InspireIT · 2021-2024 · 13+ apps"
+    },
+    "09": {
+      "title": "AI Skills",
+      "subtitle": "8 PoCs · RAG · MCP · LangChain · Fine-tuning"
+    },
+    "10": {
+      "title": "The Present",
+      "subtitle": "\"When I grow up I want to be a scientist inventor and improve people's lives!\""
+    },
+    "11": {
+      "download_full_pt": "Full CV (PT)",
+      "download_full_en": "Full CV (EN)",
+      "download_ai_en": "AI CV (EN)"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+*.iml
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Video assets (large files, served from main branch)
+web/assets/videos/
+web/assets/cvs/
